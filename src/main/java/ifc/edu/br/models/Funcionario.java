@@ -21,7 +21,7 @@ public class Funcionario extends Pessoa{
     private Long idFuncionario;
     private String cargo;
     private String login;
-    private String senhha;
+    private String senha;
     
     public Funcionario() {
     }
@@ -30,13 +30,13 @@ public class Funcionario extends Pessoa{
         super(nome, cpf, telefone);
         this.cargo = cargo;
         this.login = login;
-        this.senhha = senhha;
+        this.senha = senhha;
     }
     
     public Funcionario(String cargo, String login, String senhha) {
         this.cargo = cargo;
         this.login = login;
-        this.senhha = senhha;
+        this.senha = senhha;
     }
 
     public String getCargo() {
@@ -56,11 +56,11 @@ public class Funcionario extends Pessoa{
     }
 
     public String getSenhha() {
-        return senhha;
+        return senha;
     }
 
     public void setSenhha(String senhha) {
-        this.senhha = senhha;
+        this.senha = senhha;
     }
 
     public Long getIdFuncionario() {

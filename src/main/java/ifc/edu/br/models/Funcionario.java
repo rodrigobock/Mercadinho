@@ -18,7 +18,7 @@ public class Funcionario extends Pessoa{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
     @SequenceGenerator(name = "funcionario_seq", initialValue = 1)
-    private Long id;
+    private Long idFuncionario;
     private String cargo;
     private String login;
     private String senhha;
@@ -37,16 +37,6 @@ public class Funcionario extends Pessoa{
         this.cargo = cargo;
         this.login = login;
         this.senhha = senhha;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCargo() {
@@ -71,6 +61,14 @@ public class Funcionario extends Pessoa{
 
     public void setSenhha(String senhha) {
         this.senhha = senhha;
+    }
+
+    public Long getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(Long idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -19,9 +20,13 @@ public class Estoque {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_seq")
     @SequenceGenerator(name = "estoque_seq", initialValue = 1)
     private Long id;
-    private Produto produto;
-    private Loja loja;
     private Integer quantidade;
+    
+    @ManyToOne
+    private Produto produto;
+    
+    @ManyToOne
+    private Loja loja;
 
     public Estoque() {
     }

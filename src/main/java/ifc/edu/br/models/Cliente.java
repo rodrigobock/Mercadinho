@@ -18,40 +18,29 @@ public class Cliente extends Pessoa{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
     @SequenceGenerator(name = "cliente_seq", initialValue = 1)
-    private Long id;
-    private Venda venda;
+    private Long idCliente;
+    private NotaFiscal venda;
     private Integer qtdeCompras;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, Venda venda, Integer qtdeCompras, String nome, String cpf, String telefone) {
+    public Cliente(NotaFiscal venda, Integer qtdeCompras) {
+        this.venda = venda;
+        this.qtdeCompras = qtdeCompras;
+    }
+    
+    public Cliente(Long id, NotaFiscal venda, Integer qtdeCompras, String nome, String cpf, String telefone) {
         super(nome, cpf, telefone);
         this.venda = venda;
         this.qtdeCompras = qtdeCompras;
     }
 
-    public Cliente(Long id, Venda venda, Integer qtdeCompras) {
-        this.id = id;
-        this.venda = venda;
-        this.qtdeCompras = qtdeCompras;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Venda getVenda() {
+    public NotaFiscal getVenda() {
         return venda;
     }
 
-    public void setVenda(Venda venda) {
+    public void setVenda(NotaFiscal venda) {
         this.venda = venda;
     }
 
@@ -61,6 +50,14 @@ public class Cliente extends Pessoa{
 
     public void setQtdeCompras(Integer qtdeCompras) {
         this.qtdeCompras = qtdeCompras;
+    }
+
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
 }

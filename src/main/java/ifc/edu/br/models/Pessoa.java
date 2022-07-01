@@ -11,14 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "pessoa")
+//@Entity
+//@Table(name = "pessoa")
 public class Pessoa {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_seq")
-    @SequenceGenerator(name = "pessoa_seq", initialValue = 1)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_seq")
+//    @SequenceGenerator(name = "pessoa_seq", initialValue = 1)
+//    private Long idPessoa;
     private String nome;
     private String cpf;
     private String telefone;
@@ -36,14 +36,6 @@ public class Pessoa {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -69,5 +61,5 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
+
 }

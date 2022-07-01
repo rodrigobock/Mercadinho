@@ -4,21 +4,8 @@
  */
 package ifc.edu.br.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-
-//@Entity
-//@Table(name = "pessoa")
 public class Pessoa {
     
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_seq")
-//    @SequenceGenerator(name = "pessoa_seq", initialValue = 1)
-//    private Long idPessoa;
     private String nome;
     private String cpf;
     private String telefone;

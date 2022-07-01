@@ -14,12 +14,12 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "venda")
+@Table(name = "notaFiscal")
 public class NotaFiscal {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_seq")
-    @SequenceGenerator(name = "venda_seq", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nf_seq")
+    @SequenceGenerator(name = "nf_seq", initialValue = 1)
     private Long id;
     private Double valorTotal;
     

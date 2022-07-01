@@ -4,16 +4,12 @@
  */
 package ifc.edu.br.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "cliente")
@@ -25,9 +21,6 @@ public class Cliente extends Pessoa{
     private Long id;
     private Venda venda;
     private Integer qtdeCompras;
-    
-    @OneToOne(mappedBy="cliente", cascade = CascadeType.ALL)
-    private Set<Pessoa> pessoas = new HashSet<>();
 
     public Cliente() {
     }
@@ -42,14 +35,6 @@ public class Cliente extends Pessoa{
         this.id = id;
         this.venda = venda;
         this.qtdeCompras = qtdeCompras;
-    }
-
-    public Set<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(Set<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 
     @Override

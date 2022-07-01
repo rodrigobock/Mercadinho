@@ -4,10 +4,23 @@
  */
 package ifc.edu.br.models;
 
-/**
- *
- * @author Rodrigo
- */
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.SequenceGenerator;
+
 public class Loja {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+    @SequenceGenerator(name = "produto_seq", initialValue = 1)
+    private Long id;
+    String nome;
+    String cnpj;
+    String cep;
+    
+    @ManyToMany
+    Estoque estoque;
     
 }

@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -24,12 +23,6 @@ public class Pessoa {
     private String cpf;
     private String telefone;
     
-    @OneToOne
-    private Cliente cliente;
-    
-    @OneToOne
-    private Funcionario funcionario;
-
     public Pessoa() {
     }
 
@@ -43,8 +36,6 @@ public class Pessoa {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
-        this.cliente = cliente;
-        this.funcionario = funcionario;
     }
 
     public Long getId() {
@@ -77,22 +68,6 @@ public class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
     }
     
 }

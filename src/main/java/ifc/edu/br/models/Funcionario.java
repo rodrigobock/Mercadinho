@@ -4,25 +4,25 @@
  */
 package ifc.edu.br.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "funcionario")
 public class Funcionario extends Pessoa{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
+    @SequenceGenerator(name = "funcionario_seq", initialValue = 1)
     private Long id;
     private String cargo;
     private String login;
     private String senhha;
     
-    @OneToOne(mappedBy="funcionario", cascade = CascadeType.ALL)
-    private Set<Pessoa> pessoas = new HashSet<>();
-
     public Funcionario() {
     }
     
@@ -73,12 +73,4 @@ public class Funcionario extends Pessoa{
         this.senhha = senhha;
     }
 
-    public Set<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(Set<Pessoa> pessoas) {
-        this.pessoas = pessoas;
-    }
-    
 }

@@ -1,4 +1,3 @@
-ifc\edu\br\models\Venda.class
 ifc\edu\br\models\Pessoa.class
 ifc\edu\br\utils\CriarTabelas.class
 ifc\edu\br\mercadinho\resources\JakartaEE9Resource.class

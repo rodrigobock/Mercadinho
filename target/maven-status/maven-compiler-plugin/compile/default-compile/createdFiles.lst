@@ -1,10 +1,13 @@
 ifc\edu\br\models\Pessoa.class
 ifc\edu\br\utils\CriarTabelas.class
+ifc\edu\br\models\NotaFiscal.class
 ifc\edu\br\mercadinho\resources\JakartaEE9Resource.class
 ifc\edu\br\models\Loja.class
 ifc\edu\br\models\Cliente.class
 ifc\edu\br\models\Estoque.class
 ifc\edu\br\models\Produto.class
+ifc\edu\br\control\LoginController.class
+ifc\edu\br\models\Item.class
 ifc\edu\br\models\UnidadeMedida.class
 ifc\edu\br\mercadinho\JakartaRestConfiguration.class
 ifc\edu\br\models\Funcionario.class

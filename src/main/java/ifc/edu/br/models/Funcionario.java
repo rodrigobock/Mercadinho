@@ -25,18 +25,23 @@ public class Funcionario extends Pessoa{
     
     public Funcionario() {
     }
+
+    public Funcionario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
     
-    public Funcionario(String cargo, String login, String senhha, String nome, String cpf, String telefone) {
+    public Funcionario(String cargo, String login, String senha, String nome, String cpf, String telefone) {
         super(nome, cpf, telefone);
         this.cargo = cargo;
         this.login = login;
-        this.senha = senhha;
+        this.senha = senha;
     }
     
-    public Funcionario(String cargo, String login, String senhha) {
+    public Funcionario(String cargo, String login, String senha) {
         this.cargo = cargo;
         this.login = login;
-        this.senha = senhha;
+        this.senha = senha;
     }
 
     public String getCargo() {
@@ -55,12 +60,12 @@ public class Funcionario extends Pessoa{
         this.login = login;
     }
 
-    public String getSenhha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenhha(String senhha) {
-        this.senha = senhha;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public Long getIdFuncionario() {

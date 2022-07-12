@@ -4,6 +4,8 @@
  */
 package ifc.edu.br.control;
 
+import ifc.edu.br.dao.ProdutoDAO;
+import ifc.edu.br.models.Produto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +17,8 @@ import java.io.PrintWriter;
 @WebServlet(name = "CadProdutos", urlPatterns = {"/CadProdutos"})
 public class CadProdutosController extends HttpServlet {
 
+    ProdutoDAO pdao = new ProdutoDAO();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,6 +37,41 @@ public class CadProdutosController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        if ("produto".equals(request.getParameter("parent"))) {
+            Produto p = new Produto();
+            p.setNome(request.getParameter("descricao"));
+            p.setCodBarra(request.getParameter("email"));
+            p.setValor(validaDouble(request.getParameter("valor")));
+            p.setPeso(validaFloat(request.getParameter("peso")));
+            p.setUnidadeMedida(pdao.consultarUM(validaLong(request.getParameter("ums"))));
+            pdao.CriarProduto(p);
+        }
+        request.setAttribute("msg", "Cadastro realizado com sucesso!");
+        getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+    }
+
+    private Double validaDouble(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
+
+    private Float validaFloat(String s) {
+        try {
+            return Float.parseFloat(s);
+        } catch (Exception e) {
+            return 0F;
+        }
+    }
+
+    private Long validaLong(String s) {
+        try {
+            return Long.parseLong(s);
+        } catch (Exception e) {
+            return 0L;
+        }
     }
 
     @Override

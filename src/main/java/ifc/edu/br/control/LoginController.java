@@ -2,9 +2,6 @@ package ifc.edu.br.control;
 
 import ifc.edu.br.dao.LoginDAO;
 import ifc.edu.br.models.Funcionario;
-import ifc.edu.br.utils.JpaUtil;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

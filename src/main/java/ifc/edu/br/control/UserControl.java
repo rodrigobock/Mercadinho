@@ -46,12 +46,12 @@ public class UserControl extends HttpServlet {
 
         request.setAttribute("msg", "Funcionário incluído com sucesso");
         getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
-        //response.sendRedirect("mensagem.jsp");
+
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

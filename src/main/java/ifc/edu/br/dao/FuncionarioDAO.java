@@ -8,11 +8,9 @@ import ifc.edu.br.models.Funcionario;
 import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
+import java.util.List;
 
-/**
- *
- * @author Rodrigo
- */
 public class FuncionarioDAO {
 
     // INSERIR FUNCIONARIO
@@ -44,5 +42,28 @@ public class FuncionarioDAO {
         JpaUtil.close();
 
         return false;
+    }
+
+    
+    // BUSCAR TODOS
+    public List<Funcionario> TodosFuncionarios() {
+        // conexão
+        EntityManager manager = JpaUtil.getEntityManager();
+      
+        try {
+            Query q = manager.createQuery("from funcionario");
+            List<Funcionario> funcionarios = q.getResultList();
+            
+            return funcionarios;
+            
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        manager.close();
+        JpaUtil.close();
+        
+        return null;
+        
     }
 }

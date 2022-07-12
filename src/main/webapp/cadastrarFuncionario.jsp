@@ -1,9 +1,3 @@
-<%--
-    Document   : form
-    Created on : Mar 17, 2022, 3:09:25 PM
-    Author     : friend
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

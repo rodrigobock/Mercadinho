@@ -4,12 +4,35 @@
  */
 package ifc.edu.br.dao;
 
-/**
- *
- * @author Rodrigo
- */
-public class LoginDAO {
-    
+import ifc.edu.br.models.Funcionario;
+import ifc.edu.br.utils.JpaUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import java.sql.SQLException;
 
-    
+public class LoginDAO {
+
+    public Funcionario validaLogin(String login, String senha) throws SQLException {
+
+        EntityManager manager = JpaUtil.getEntityManager();
+
+        try {
+            Query q = manager.createNativeQuery("SELECT * FROM Funcionario WHERE login = :login and senha = :senha", Funcionario.class);
+            q.setParameter("login", login);
+            q.setParameter("senha", senha);
+            Funcionario funcionario = (Funcionario) q.getSingleResult();
+
+            return funcionario;
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        manager.close();
+        JpaUtil.close();
+
+        return null;
+
+    }
+
 }

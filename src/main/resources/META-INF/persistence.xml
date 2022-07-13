@@ -6,15 +6,16 @@
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mercadinho"/>
-      <!--  <property name="jakarta.persistence.jdbc.user" value="root"/> -->
+      <!-- Rodrigo -->
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="root"/>
+      <!-- Nicolas 
       <property name="jakarta.persistence.jdbc.user" value="admin"/>
-      <!--  <property name="jakarta.persistence.jdbc.password" value="root"/> -->
-      <property name="jakarta.persistence.jdbc.password" value="admin"/>
+      <property name="jakarta.persistence.jdbc.password" value="admin"/> -->
       <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

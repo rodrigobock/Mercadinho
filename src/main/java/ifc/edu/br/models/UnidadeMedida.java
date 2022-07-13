@@ -16,8 +16,6 @@ import jakarta.persistence.Table;
 public class UnidadeMedida {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "um_seq")
-    @SequenceGenerator(name = "um_seq", initialValue = 1)
     private Long id;
     private String tipo;
 

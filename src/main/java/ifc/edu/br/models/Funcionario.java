@@ -22,7 +22,7 @@ public class Funcionario extends Pessoa{
     private String cargo;
     private String login;
     private String senha;
-    
+ 
     public Funcionario() {
     }
 

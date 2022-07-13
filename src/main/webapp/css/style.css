@@ -1,12 +1,31 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.login-button{
+  font-family: "Roboto", sans-serif;
+  font-weight: 800;
+  border:0;
+  background: #4CAF50;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #4CAF50;
+  padding: 14px 40px;
+  outline : none;
+  color: black;
+  border-radius : 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.login-button:hover{
+    background: #3498db;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
 }
 .form {
-  position: relative;
+  position: absolute;
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
@@ -14,6 +33,9 @@
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -55,6 +77,25 @@
 .form .register-form {
   display: none;
 }
+.form .title{
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.form input[type ="submit"]{
+    border: 0;
+    background: #4CAF50;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #4CAF50;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
 .container {
   position: relative;
   z-index: 1;
@@ -95,4 +136,15 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
+}
+footer{
+  position: absolute;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  bottom: 0;  
+  color: #FFF;
+  width: 100%;
+  height: 100px;    
+  text-align: center;
+  line-height: 100px;
 }

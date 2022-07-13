@@ -41,12 +41,24 @@ public class UserControl extends HttpServlet {
         String cargo = request.getParameter("cargo");
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-
-        fdao.CriarUsuario(cargo, login, senha);
-
-        request.setAttribute("msg", "Funcionário incluído com sucesso");
-        getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
-
+        /*
+        Adicionado TRY para verificar existência do usuário no sistema e evitar
+        duplicidade de registros na tabela
+        */
+        try {
+            /*
+            Utilizado IF para não precisar declarar um Objeto sendo que é apenas
+            uma verificação e o objeto não realiza atividade alguma após validação
+            */
+            if (fdao.CriarUsuario(cargo, login, senha) == true) {
+                request.setAttribute("msg", "Funcionário incluído com sucesso");
+                getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            request.setAttribute("msg", "Funcionário já existe no sistema");
+            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+        }
+                
     }
 
     @Override

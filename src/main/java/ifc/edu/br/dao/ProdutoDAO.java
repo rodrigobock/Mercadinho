@@ -36,6 +36,12 @@ public class ProdutoDAO {
             Query q = manager.createQuery("from produto");
             List<Produto> produtos = q.getResultList();
 
+            /*
+            Fechando a conexão pois se feito return sem dar CLOSE fica em aberto
+            e depois demora para abrir uma nova
+            */
+            manager.close();
+            JpaUtil.close();
             return produtos;
 
         } catch (Exception e) {

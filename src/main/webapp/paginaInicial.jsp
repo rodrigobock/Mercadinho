@@ -19,4 +19,7 @@
             <button>Registrar Venda</button>
         </a> 
     </body>
+    <footer>
+        Rodrigo Bock e Nicolas Escobar. TADS 2022™
+    </footer>
 </html>

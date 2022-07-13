@@ -9,13 +9,34 @@ import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import java.sql.SQLException;
 import java.util.List;
 
 public class FuncionarioDAO {
 
     // INSERIR FUNCIONARIO
-    public boolean CriarUsuario(String cargo, String login, String senha) {
+    /*
+    Adicionado THROWS para tratar o erro quando tentar incluir um registro
+    já existente
+    */
+    public boolean CriarUsuario(String cargo, String login, String senha) throws Exception {
 
+        /*
+        Validação de usuário existente na tabela antes de continuar para 
+        inclusão do novo registro
+        */
+        LoginDAO ldao = new LoginDAO();
+        
+        try {
+            Funcionario funcionario = ldao.validaLogin(login, senha);
+            
+            if (funcionario != null) {
+                throw new Exception("Usuário já existe!");
+            }
+        } catch (SQLException e) {
+            e.getMessage();           
+        }
+        
         EntityManager manager = JpaUtil.getEntityManager();
 
         EntityTransaction entityTransaction = manager.getTransaction();
@@ -31,6 +52,13 @@ public class FuncionarioDAO {
             entityTransaction.commit();
 
             System.out.println("Dados Inseridos");
+            
+            /*
+            Fechando a conexão pois se feito return sem dar CLOSE fica em aberto
+            e depois demora para abrir uma nova
+            */
+            manager.close();
+            JpaUtil.close();
 
             return true;
 
@@ -53,6 +81,9 @@ public class FuncionarioDAO {
         try {
             Query q = manager.createQuery("from funcionario");
             List<Funcionario> funcionarios = q.getResultList();
+            
+            manager.close();
+            JpaUtil.close();
             
             return funcionarios;
             

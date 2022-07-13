@@ -22,6 +22,12 @@ public class LoginDAO {
             q.setParameter("senha", senha);
             Funcionario funcionario = (Funcionario) q.getSingleResult();
 
+            /*
+            Fechando a conexão pois se feito return sem dar CLOSE fica em aberto
+            e depois demora para abrir uma nova
+            */
+            manager.close();
+            JpaUtil.close();
             return funcionario;
 
         } catch (Exception e) {

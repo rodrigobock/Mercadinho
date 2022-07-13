@@ -11,13 +11,15 @@
             <div class="form">
                 <form action="login" method="post" class="login-form">
                     <input type="text" name="login" placeholder="username"/>
-                    <input name="senha" type="password" placeholder="password"/>
-                    <button type="submit"> Login </button>
+                    <input type="password" name="senha" placeholder="password"/>
+                    <input type="submit" value="Login">
                     
                     <p class="message">Not registered? <a href="funcionario">Create an account</a></p>
                 </form>
             </div>
         </div>
-
     </body>
+    <footer>
+        Rodrigo Bock e Nicolas Escobar. TADS 2022™
+    </footer>    
 </html>

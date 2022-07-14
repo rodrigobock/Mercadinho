@@ -1,4 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"
+        import="java.util.*"
+        import="ifc.edu.br.models*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +15,7 @@
             Valor <input type="text" name="valor" value=""> <br>
             Peso: <input type="text" name="peso" value=""> <br>
             Unidade de medida: 
-            <select name="produtoUM">
+            <select name="ums">
                 <%
                     ArrayList<UnidadeMedida> ums = (ArrayList<UnidadeMedida>) request.getAttribute("ums");
                     for (UnidadeMedida unidadeMedida : ums) {

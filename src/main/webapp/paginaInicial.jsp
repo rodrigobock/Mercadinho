@@ -12,12 +12,10 @@
         <title>Pagina Inicial</title>
     </head>
     <body>
-        <a href="CadProdutos">
-            <button>Cadastrar Produtos</button>
-        </a> 
-        <a href="RegVendas">
-            <button>Registrar Venda</button>
-        </a> 
+        <form action="CadProdutos" method="get">
+            <br> <button type="submit" name="CadProdutos">Cadastrar Produtos</button>
+            <br> <button type="submit" name="RegVendas">Registrar Venda</button>
+        </form>
     </body>
     <footer>
         Rodrigo Bock e Nicolas Escobar. TADS 2022™

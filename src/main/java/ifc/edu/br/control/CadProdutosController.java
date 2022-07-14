@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 public class CadProdutosController extends HttpServlet {
 
     ProdutoDAO pdao = new ProdutoDAO();
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,6 +31,10 @@ public class CadProdutosController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        if (request.getParameter("CadProdutos") != null) {
+            request.setAttribute("ums", pdao.consultarUMs());
+            getServletContext().getRequestDispatcher("/cadProdutos.jsp").forward(request, response);
+        }
     }
 
     @Override

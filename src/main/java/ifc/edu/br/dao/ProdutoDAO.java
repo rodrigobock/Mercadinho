@@ -61,4 +61,9 @@ public class ProdutoDAO {
         return (UnidadeMedida) q.getSingleResult();
     }
 
+    public List consultarUMs() {
+        List ums = em.createQuery("from UnidadeMedida", UnidadeMedida.class).getResultList();
+        return ums;
+    }
+    
 }

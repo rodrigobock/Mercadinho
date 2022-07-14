@@ -5,73 +5,59 @@
 package ifc.edu.br.dao;
 
 import ifc.edu.br.models.Funcionario;
-import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-import java.sql.SQLException;
 import java.util.List;
 
 public class FuncionarioDAO {
 
-    // INSERIR FUNCIONARIO
-    /*
-    Adicionado THROWS para tratar o erro quando tentar incluir um registro
-    já existente
-     */
+    EntityManagerFactory emf;
+    EntityManager em;
+
+    public FuncionarioDAO() {
+        emf = Persistence.createEntityManagerFactory("meuPU");
+        em = emf.createEntityManager();
+    }    
+    // INSERIR FUNCIONARIO    
     public boolean CriarUsuario(String cargo, String login, String senha) throws Exception {
 
-        EntityManager manager = JpaUtil.getEntityManager();
-
-        EntityTransaction entityTransaction = manager.getTransaction();
-        entityTransaction.begin();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();              
 
         try {
             Funcionario func = new Funcionario();
             func.setCargo(cargo);
             func.setLogin(login);
             func.setSenha(senha);
-            manager.persist(func);
-
-            entityTransaction.commit();
-
-            manager.close();
-            JpaUtil.close();
+            em.persist(func);
+        
+            tx.commit();
 
             return true;
-
         } catch (Exception e) {
-            e.getMessage();
+            e.getMessage();            
         }
-
-        manager.close();
-        JpaUtil.close();
-
         return false;
     }
 
     // BUSCAR TODOS
     public List<Funcionario> TodosFuncionarios() {
         // conexão
-        EntityManager manager = JpaUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin(); 
 
         try {
-            Query q = manager.createQuery("from funcionario");
+            Query q = em.createQuery("from funcionario");
             List<Funcionario> funcionarios = q.getResultList();
-
-            manager.close();
-            JpaUtil.close();
 
             return funcionarios;
 
         } catch (Exception e) {
-            e.getMessage();
+            e.getMessage();            
         }
-
-        manager.close();
-        JpaUtil.close();
-
         return null;
-
     }
 }

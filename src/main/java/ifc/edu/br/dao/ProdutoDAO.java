@@ -33,7 +33,6 @@ public class ProdutoDAO {
         tx.begin();
         em.persist(p);
         tx.commit();
-        em.close();
     }
 
     // BUSCAR TODOS

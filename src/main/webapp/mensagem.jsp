@@ -16,5 +16,7 @@
 
         <h3> <%= (String) request.getAttribute("msg") %> </h3>
 
+        <a href="paginaInicial.jsp">Retornar ao início</a>
+
     </body>
 </html>

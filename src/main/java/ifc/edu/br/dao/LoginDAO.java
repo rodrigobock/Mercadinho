@@ -5,7 +5,6 @@
 package ifc.edu.br.dao;
 
 import ifc.edu.br.models.Funcionario;
-import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

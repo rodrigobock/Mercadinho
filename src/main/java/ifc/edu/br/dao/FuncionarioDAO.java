@@ -49,20 +49,8 @@ public class FuncionarioDAO {
     }
 
     // BUSCAR TODOS
-    public List<Funcionario> TodosFuncionarios() {
-        // conexão
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        try {
-            Query q = em.createQuery("from pessoa where tipoCadastro = 'FUNCIONARIO'");
-            List<Funcionario> funcionarios = q.getResultList();
-
-            return funcionarios;
-
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return null;
+    public List todosFuncionarios() {
+        List funcionarios = em.createQuery("from Pessoa where tipoCadastro = 'FUNCIONARIO'").getResultList();
+        return funcionarios;
     }
 }

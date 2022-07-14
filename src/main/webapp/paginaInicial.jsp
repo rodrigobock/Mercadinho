@@ -16,6 +16,9 @@
             <br> <button type="submit" name="CadProdutos">Cadastrar Produtos</button>
             <br> <button type="submit" name="RegVendas">Registrar Venda</button>
         </form>
+        <form action="ListarController" method="get">
+            <br> <button type="submit" name="listarFuncionarios">Listar todos funcionários</button>
+        </form>
     </body>
     <footer>
         Rodrigo Bock e Nicolas Escobar. TADS 2022™

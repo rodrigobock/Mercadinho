@@ -28,5 +28,6 @@
             <input type="hidden" name="parent" value="produto">
             <input type="submit" value="Cadastrar">
         </form>
+        <a href="paginaInicial.jsp">Retornar ao início</a>
     </body>
 </html>

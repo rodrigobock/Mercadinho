@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "CadProdutos", urlPatterns = {"/CadProdutos"})
 public class CadProdutosController extends HttpServlet {
@@ -21,10 +20,6 @@ public class CadProdutosController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            getServletContext().getRequestDispatcher("/cadProdutos.jsp").forward(request, response);
-        }
     }
 
     @Override
@@ -32,8 +27,11 @@ public class CadProdutosController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         if (request.getParameter("CadProdutos") != null) {
-            request.setAttribute("ums", pdao.consultarUMs());
+            request.setAttribute("ums", pdao.todosUM());
             getServletContext().getRequestDispatcher("/cadProdutos.jsp").forward(request, response);
+        } else if (request.getParameter("RegVendas") != null) {
+            request.setAttribute("produtos", pdao.TodosProdutos());
+            getServletContext().getRequestDispatcher("/registrarVendas.jsp").forward(request, response);
         }
     }
 

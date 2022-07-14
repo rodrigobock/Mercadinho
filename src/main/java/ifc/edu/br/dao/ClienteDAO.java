@@ -4,7 +4,7 @@
  */
 package ifc.edu.br.dao;
 
-import ifc.edu.br.models.Funcionario;
+import ifc.edu.br.models.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -12,32 +12,33 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 
-public class FuncionarioDAO {
+/**
+ *
+ * @author Rodrigo
+ */
+public class ClienteDAO {
 
     EntityManagerFactory emf;
     EntityManager em;
 
-    public FuncionarioDAO() {
+    public ClienteDAO() {
         emf = Persistence.createEntityManagerFactory("meuPU");
         em = emf.createEntityManager();
     }
 
-    // INSERIR FUNCIONARIO    
-    public boolean CriarUsuario(String nome, String telefone, String cpf, String cargo, String login, String senha) throws Exception {
+    // INSERIR CLIENTE    
+    public boolean CriarUsuario(String nome, String telefone, String cpf) throws Exception {
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
         try {
-            Funcionario func = new Funcionario();
-            func.setNome(nome);
-            func.setTelefone(telefone);
-            func.setCpf(cpf);
-            func.setCargo(cargo);
-            func.setLogin(login);
-            func.setSenha(senha);
-            func.setTipoCadastro("FUNCIONARIO");
-            em.persist(func);
+            Cliente cliente = new Cliente();
+            cliente.setNome(nome);
+            cliente.setTelefone(telefone);
+            cliente.setCpf(cpf);
+            cliente.setTipoCadastro("CLIENTE");
+            em.persist(cliente);
 
             tx.commit();
 
@@ -49,16 +50,16 @@ public class FuncionarioDAO {
     }
 
     // BUSCAR TODOS
-    public List<Funcionario> TodosFuncionarios() {
+    public List<Cliente> TodosClientes() {
         // conexão
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
         try {
-            Query q = em.createQuery("from pessoa where tipoCadastro = 'FUNCIONARIO'");
-            List<Funcionario> funcionarios = q.getResultList();
+            Query q = em.createQuery("from pessoa where tipoCadastro = 'CLIENTE'");
+            List<Cliente> clientes = q.getResultList();
 
-            return funcionarios;
+            return clientes;
 
         } catch (Exception e) {
             e.getMessage();

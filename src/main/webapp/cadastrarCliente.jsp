@@ -3,20 +3,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cad Func</title>
+        <title>Cadastro de Cliente</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>        
         <div class="login-page">
             <div class="form">
-                <h1 class="title">Cadastro de funcionário</h1>
-                <form action="funcionario" method="post" class="login-form">
+                <h1 class="title">Cadastro de clientes</h1>
+                <form action="ClienteControl" method="post" class="login-form">
                     <input type="text" name="nome" placeholder="nome"> <br>
                     <input type="text" name="telefone" placeholder="telefone"> <br>
                     <input type="text" name="cpf" placeholder="cpf"> <br>
-                    <input type="text" name="cargo" placeholder="Cargo"> <br>
-                    <input type="text" name="login" placeholder="Login"> <br>
-                    <input type="password" name="senha" placeholder="Senha"> <br>
                     <input type="submit" value="Cadastrar">            
                 </form>
             </div>

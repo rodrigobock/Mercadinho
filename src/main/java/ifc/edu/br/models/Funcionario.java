@@ -5,20 +5,12 @@
 package ifc.edu.br.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "funcionario")
 public class Funcionario extends Pessoa{
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
-    @SequenceGenerator(name = "funcionario_seq", initialValue = 1)
-    private Long idFuncionario;
     private String cargo;
     private String login;
     private String senha;
@@ -31,8 +23,8 @@ public class Funcionario extends Pessoa{
         this.senha = senha;
     }
     
-    public Funcionario(String cargo, String login, String senha, String nome, String cpf, String telefone) {
-        super(nome, cpf, telefone);
+    public Funcionario(String cargo, String login, String senha, String nome, String cpf, String telefone, String tipoCadastro) {
+        super(nome, cpf, telefone, tipoCadastro);
         this.cargo = cargo;
         this.login = login;
         this.senha = senha;
@@ -68,12 +60,5 @@ public class Funcionario extends Pessoa{
         this.senha = senha;
     }
 
-    public Long getIdFuncionario() {
-        return idFuncionario;
-    }
-
-    public void setIdFuncionario(Long idFuncionario) {
-        this.idFuncionario = idFuncionario;
-    }
 
 }

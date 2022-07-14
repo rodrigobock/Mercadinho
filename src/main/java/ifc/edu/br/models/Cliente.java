@@ -5,20 +5,12 @@
 package ifc.edu.br.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente extends Pessoa{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
-    @SequenceGenerator(name = "cliente_seq", initialValue = 1)
-    private Long idCliente;
+public class Cliente extends Pessoa {
+
     private Integer qtdeCompras;
 
     public Cliente() {
@@ -28,13 +20,6 @@ public class Cliente extends Pessoa{
         this.qtdeCompras = qtdeCompras;
     }
 
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
 
     public Integer getQtdeCompras() {
         return qtdeCompras;
@@ -43,7 +28,5 @@ public class Cliente extends Pessoa{
     public void setQtdeCompras(Integer qtdeCompras) {
         this.qtdeCompras = qtdeCompras;
     }
-
-    
 
 }

@@ -38,6 +38,10 @@ public class CadProdutosController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // configuração para corrigir questões de acento
+        request.setCharacterEncoding("utf8");
+
         processRequest(request, response);
         if ("produto".equals(request.getParameter("parent"))) {
             Produto p = new Produto();

@@ -24,7 +24,7 @@ public class LoginDAO {
     public Funcionario validaLogin(String login, String senha) throws SQLException {
 
         try {
-            Query q = em.createNativeQuery("SELECT * FROM Funcionario WHERE login = :login and senha = :senha", Funcionario.class);
+            Query q = em.createNativeQuery("SELECT * FROM pessoa WHERE login = :login and senha = :senha and tipoCadastro = 'FUNCIONARIO'", Funcionario.class);
             q.setParameter("login", login);
             q.setParameter("senha", senha);
             Funcionario funcionario = (Funcionario) q.getSingleResult();

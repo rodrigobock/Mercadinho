@@ -11,6 +11,7 @@
             <div class="form">
                 <h1 class="title">Login</h1>
                 <form action="login" method="post" class="login-form">
+                    <input type="hidden" name="back" value="login" />
                     <input type="text" name="login" placeholder="username"/>
                     <input type="password" name="senha" placeholder="password"/>
                     <input type="submit" value="Login">

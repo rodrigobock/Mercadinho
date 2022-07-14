@@ -38,6 +38,7 @@ public class FuncionarioControl extends HttpServlet {
 
         // configuração para corrigir questões de acento
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
@@ -48,7 +49,7 @@ public class FuncionarioControl extends HttpServlet {
         
         try {
             if (fdao.ValidaLogin(login)) {
-                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
+                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");                
                 getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
             }else if (fdao.CriarUsuario(nome, telefone, cpf, cargo, login, senha)) {
                 request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");

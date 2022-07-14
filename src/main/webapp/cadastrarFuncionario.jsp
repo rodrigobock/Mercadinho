@@ -9,11 +9,13 @@
     <body>        
         <div class="login-page">
             <div class="form">
+                <% out.println("<a href=\"" + request.getParameter("back") 
+                        + "\">Voltar</a>");%>
                 <h1 class="title">Cadastro de funcionário</h1>
                 <form action="FuncionarioControl" method="post" class="login-form">
-                    <input type="text" name="nome" placeholder="nome"> <br>
-                    <input type="text" name="telefone" placeholder="telefone"> <br>
-                    <input type="text" name="cpf" placeholder="cpf"> <br>
+                    <input type="text" name="nome" placeholder="Nome"> <br>
+                    <input type="text" name="telefone" placeholder="Telefone"> <br>
+                    <input type="text" name="cpf" placeholder="CPF"> <br>
                     <input type="text" name="cargo" placeholder="Cargo"> <br>
                     <input type="text" name="login" placeholder="Login"> <br>
                     <input type="password" name="senha" placeholder="Senha"><br>                         
@@ -24,7 +26,5 @@
             </div>
         </div>
     </body>
-    <footer>
-        Rodrigo Bock e Nicolas Escobar. TADS 2022™
-    </footer>
+    <jsp:include page="footer.jsp"/>
 </html>

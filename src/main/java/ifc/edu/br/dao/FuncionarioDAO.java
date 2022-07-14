@@ -62,7 +62,9 @@ public class FuncionarioDAO {
             Query q = em.createQuery("from Pessoa where login = :login and tipoCadastro = 'FUNCIONARIO'");
             q.setParameter("login", login);
             
-            final Long result = (Long) q.getSingleResult();
+            Funcionario funcionario = (Funcionario) q.getSingleResult();
+            
+            final Long result = funcionario.getId();
             
             return result != null && result > 0; 
 

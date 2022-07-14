@@ -25,6 +25,7 @@
                     }
                 %>
             </select> <br>
+            <input type="hidden" name="parent" value="produto">
             <input type="submit" value="Cadastrar">
         </form>
     </body>

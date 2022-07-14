@@ -42,14 +42,18 @@ public class CadProdutosController extends HttpServlet {
         if ("produto".equals(request.getParameter("parent"))) {
             Produto p = new Produto();
             p.setNome(request.getParameter("descricao"));
-            p.setCodBarra(request.getParameter("email"));
+            p.setCodBarra(request.getParameter("gtin"));
             p.setValor(validaDouble(request.getParameter("valor")));
             p.setPeso(validaFloat(request.getParameter("peso")));
             p.setUnidadeMedida(pdao.consultarUM(validaLong(request.getParameter("ums"))));
             pdao.CriarProduto(p);
+            request.setAttribute("msg", "Cadastro de produtos realizado com sucesso!");
+            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+        } else {
+            request.setAttribute("msg", "Cadastro de produtos falhou!");
+            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
         }
-        request.setAttribute("msg", "Cadastro de produtos realizado com sucesso!");
-        getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+
     }
 
     private Double validaDouble(String s) {

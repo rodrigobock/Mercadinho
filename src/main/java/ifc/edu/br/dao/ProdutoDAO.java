@@ -6,17 +6,15 @@ package ifc.edu.br.dao;
 
 import ifc.edu.br.models.Produto;
 import ifc.edu.br.models.UnidadeMedida;
-import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDAO {
-    
+
     EntityManagerFactory emf;
     EntityManager em;
 
@@ -24,7 +22,6 @@ public class ProdutoDAO {
         emf = Persistence.createEntityManagerFactory("meuPU");
         em = emf.createEntityManager();
     }
-    
 
     // INSERIR PRODUTO
     public void CriarProduto(Produto p) {
@@ -36,26 +33,9 @@ public class ProdutoDAO {
     }
 
     // BUSCAR TODOS
-    public List<Produto> TodosProdutos() {
-        // conexão
-        EntityManager manager = JpaUtil.getEntityManager();
-        try {
-            Query q = manager.createQuery("from produto");
-            List<Produto> produtos = q.getResultList();
-
-            manager.close();
-            JpaUtil.close();
-            return produtos;
-
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        manager.close();
-        JpaUtil.close();
-
-        return null;
-
+    public List consultarPodutos() {
+        List produtos = em.createQuery("from Produto", Produto.class).getResultList();
+        return produtos;
     }
 
     public UnidadeMedida consultarUM(Long id) {

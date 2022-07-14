@@ -30,7 +30,7 @@ public class CadProdutosController extends HttpServlet {
             request.setAttribute("ums", pdao.todosUM());
             getServletContext().getRequestDispatcher("/cadProdutos.jsp").forward(request, response);
         } else if (request.getParameter("RegVendas") != null) {
-            request.setAttribute("produtos", pdao.TodosProdutos());
+            request.setAttribute("produtos", pdao.consultarPodutos());
             getServletContext().getRequestDispatcher("/registrarVendas.jsp").forward(request, response);
         }
     }
@@ -48,7 +48,7 @@ public class CadProdutosController extends HttpServlet {
             p.setUnidadeMedida(pdao.consultarUM(validaLong(request.getParameter("ums"))));
             pdao.CriarProduto(p);
         }
-        request.setAttribute("msg", "Cadastro realizado com sucesso!");
+        request.setAttribute("msg", "Cadastro de produtos realizado com sucesso!");
         getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
     }
 

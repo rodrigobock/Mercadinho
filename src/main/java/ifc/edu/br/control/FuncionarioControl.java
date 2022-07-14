@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "Funcionario", urlPatterns = {"/funcionario"})
-public class UserControl extends HttpServlet {
+@WebServlet(name = "FuncionarioControl", urlPatterns = {"/FuncionarioControl"})
+public class FuncionarioControl extends HttpServlet {
 
     FuncionarioDAO fdao = new FuncionarioDAO();
 
@@ -37,7 +37,7 @@ public class UserControl extends HttpServlet {
             throws ServletException, IOException {
 
         // configuração para corrigir questões de acento
-        request.setCharacterEncoding("utf8");
+        request.setCharacterEncoding("UTF-8");
 
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
@@ -45,17 +45,16 @@ public class UserControl extends HttpServlet {
         String cargo = request.getParameter("cargo");
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        /*
-        Adicionado TRY para verificar existência do usuário no sistema e evitar
-        duplicidade de registros na tabela
-         */
+        
         try {
-            /*
-            Utilizado IF para não precisar declarar um Objeto sendo que é apenas
-            uma verificação e o objeto não realiza atividade alguma após validação
-             */
-            if (fdao.CriarUsuario(nome, telefone, cpf, cargo, login, senha) == true) {
-                request.setAttribute("msg", "Funcionário incluído com sucesso");
+            if (fdao.ValidaLogin(login)) {
+                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
+                getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+            }else if (fdao.CriarUsuario(nome, telefone, cpf, cargo, login, senha)) {
+                request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
+                getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+            }else{
+                request.setAttribute("msg", "Erro ao cadastrar!");
                 getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
             }
         } catch (Exception e) {

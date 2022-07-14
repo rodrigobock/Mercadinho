@@ -72,15 +72,9 @@ public class ClienteControl extends HttpServlet {
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
         String cpf = request.getParameter("cpf");
-        /*
-        Adicionado TRY para verificar existência do usuário no sistema e evitar
-        duplicidade de registros na tabela
-         */
+
         try {
-            /*
-            Utilizado IF para não precisar declarar um Objeto sendo que é apenas
-            uma verificação e o objeto não realiza atividade alguma após validação
-             */
+
             if (cdao.CriarUsuario(nome, telefone, cpf) == true) {
                 request.setAttribute("msg", "CLiente incluído com sucesso");
                 getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);

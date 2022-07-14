@@ -5,11 +5,13 @@
 package ifc.edu.br.dao;
 
 import ifc.edu.br.models.Funcionario;
+import ifc.edu.br.models.Pessoa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import java.sql.SQLException;
 import java.util.List;
 
 public class FuncionarioDAO {
@@ -26,8 +28,9 @@ public class FuncionarioDAO {
     public boolean CriarUsuario(String nome, String telefone, String cpf, String cargo, String login, String senha) throws Exception {
 
         EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
+        if (!tx.isActive()) {
+            tx.begin();     
+        } 
         try {
             Funcionario func = new Funcionario();
             func.setNome(nome);
@@ -48,9 +51,29 @@ public class FuncionarioDAO {
         return false;
     }
 
+    public boolean ValidaLogin(String login) throws SQLException{
+        
+        EntityTransaction tx = em.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();     
+        }                
+        try {
+            
+            Query q = em.createQuery("from Pessoa where login = :login and tipoCadastro = 'FUNCIONARIO'");
+            q.setParameter("login", login);
+            
+            final Long result = (Long) q.getSingleResult();
+            
+            return result != null && result > 0; 
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return false;       
+    }
     // BUSCAR TODOS
     public List todosFuncionarios() {
-        List funcionarios = em.createQuery("from Pessoa where tipoCadastro = 'FUNCIONARIO'").getResultList();
+        List funcionarios = em.createQuery("from pessoa where tipoCadastro = 'FUNCIONARIO'").getResultList();
         return funcionarios;
     }
 }

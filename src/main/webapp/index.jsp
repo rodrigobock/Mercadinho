@@ -1,3 +1,10 @@
+<%-- 
+    Document   : index
+    Created on : Jul 14, 2022, 7:40:09 PM
+    Author     : nicoe
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +19,5 @@
             </a> 
         </div>
     </body>
-    <footer>
-        Rodrigo Bock e Nicolas Escobar. TADS 2022™
-    </footer>
+    <jsp:include page="footer.jsp"/>
 </html>

@@ -9,6 +9,7 @@
     <body>
         <div class="login-page">
             <div class="form">
+                <h1 class="title">Login</h1>
                 <form action="login" method="post" class="login-form">
                     <input type="text" name="login" placeholder="username"/>
                     <input type="password" name="senha" placeholder="password"/>
@@ -21,7 +22,5 @@
             </div>
         </div>
     </body>
-    <footer>
-        Rodrigo Bock e Nicolas Escobar. TADS 2022™
-    </footer>    
+    <jsp:include page="subpaginaLogin.jsp"/>
 </html>

@@ -22,5 +22,5 @@
             </div>
         </div>
     </body>
-    <jsp:include page="subpaginaLogin.jsp"/>
+    <jsp:include page="footer.jsp"/>
 </html>

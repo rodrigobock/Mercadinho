@@ -9,17 +9,19 @@
     <body>        
         <div class="login-page">
             <div class="form">
+                <a href="login">Voltar</a>
                 <h1 class="title">Cadastro de clientes</h1>
                 <form action="ClienteControl" method="post" class="login-form">
-                    <input type="text" name="nome" placeholder="nome"> <br>
-                    <input type="text" name="telefone" placeholder="telefone"> <br>
-                    <input type="text" name="cpf" placeholder="cpf"> <br>
+                    <input type="text" name="nome" required oninvalid="this.setCustomValidity('Insira um nome!')"
+                           oninput="this.setCustomValidity('')" placeholder="Nome"> <br>
+                    <input type="text" name="telefone" required oninvalid="this.setCustomValidity('Insira um telefone!')"
+                           oninput="this.setCustomValidity('')" placeholder="Telefone"> <br>
+                    <input type="text" name="cpf" required oninvalid="this.setCustomValidity('Insira um CPF!')"
+                           oninput="this.setCustomValidity('')" placeholder="CPF"> <br>
                     <input type="submit" value="Cadastrar">            
                 </form>
             </div>
         </div>
     </body>
-    <footer>
-        Rodrigo Bock e Nicolas Escobar. TADS 2022™
-    </footer>
+    <jsp:include page="footer.jsp"/>
 </html>

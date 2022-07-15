@@ -10,9 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import ifc.edu.br.utils.PasswordHash;
 
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
+    
+    private PasswordHash hash;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +40,7 @@ public class LoginController extends HttpServlet {
         request.setCharacterEncoding("utf8");
 
         String login = request.getParameter("login");
-        String senha = request.getParameter("senha");
+        String senha = hash.hashPassword(request.getParameter("senha"));
 
         LoginDAO ldao = new LoginDAO();
 

@@ -14,13 +14,10 @@
     <body>        
         <div class="login-page">
             <div class="form">
-                <% out.println("<a href=\"" + request.getParameter("back") 
-                        + "\">Voltar</a>");%>
+                <a href="login">Voltar</a>
                 <h1 class="title">Cadastro de funcionário</h1>
                 <form method="POST" action='FuncionarioController' name="frmAddUser">
-                    <input type="hidden" name="id" value="<c:out value="${funcionario.id}"/>" /> <br /> 
-                    <!-- <input type="text" readonly="readonly" name="id" placeholder="ID" 
-                           value="<c:out value="${funcionario.id}"/>" /> <br /> -->
+                    <input type="hidden" name="id" value="<c:out value="${funcionario.id}"/>" /> <br />
                     <input type="text" name="nome" required oninvalid="this.setCustomValidity('Insira um nome!')"
                            oninput="this.setCustomValidity('')" placeholder="Nome" 
                            value="<c:out value="${funcionario.nome}"/>" /> <br /> 

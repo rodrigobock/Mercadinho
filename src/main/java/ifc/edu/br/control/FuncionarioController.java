@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import ifc.edu.br.utils.PasswordHash;
 
 @WebServlet(name = "FuncionarioController", urlPatterns = {"/FuncionarioController"})
 public class FuncionarioController extends HttpServlet {
@@ -22,6 +23,7 @@ public class FuncionarioController extends HttpServlet {
     private static String LIST_USER = "/listarFuncionarios.jsp";
     private static String InitialPage = "/paginaInical.jsp";
     private FuncionarioDAO fdao;
+    private PasswordHash hash;
 
     public FuncionarioController() {
         super();
@@ -75,28 +77,24 @@ public class FuncionarioController extends HttpServlet {
         func.setTelefone(request.getParameter("telefone"));
         func.setCpf(request.getParameter("cpf"));
         func.setCargo(request.getParameter("cargo"));
-        func.setLogin(request.getParameter("login"));
-        func.setSenha(request.getParameter("senha"));
+        func.setLogin(request.getParameter("login"));                
+        func.setSenha(hash.hashPassword(request.getParameter("senha")));
 
         String id = request.getParameter("id");
-
+        
         try {
             if (id == null || id.isEmpty()) {
 
                 if (fdao.ValidaLogin(func.getLogin())) {
                     request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
                     RequestDispatcher view = request.getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario");
-                    //getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario").forward(request, response);
                     view.forward(request, response);
                 } else {
                     fdao.CriarUsuario(func);
 
-                    //Tava tentando realizar login e não encontrava usuário
-                    //RequestDispatcher view = request.getRequestDispatcher("login");
+                    RequestDispatcher view = request.getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario");
                     request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
-                    //Adicionado para manter na mesma página após Cadastro de Funcionário
-                    getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario").include(request, response);
-                    //view.forward(request, response);
+                    view.forward(request, response);
                 }
 
             } else if (id != null || !id.isEmpty()) {

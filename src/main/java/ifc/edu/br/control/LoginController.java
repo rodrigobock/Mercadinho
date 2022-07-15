@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import ifc.edu.br.utils.PasswordHash;
+import jakarta.servlet.RequestDispatcher;
 
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -37,7 +38,8 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
 
         // configuração para corrigir questões de acento
-        request.setCharacterEncoding("utf8");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         String login = request.getParameter("login");
         String senha = hash.hashPassword(request.getParameter("senha"));
@@ -48,7 +50,9 @@ public class LoginController extends HttpServlet {
             PrintWriter writer = response.getWriter();
             Funcionario funcionario = ldao.validaLogin(login, senha);
             if (funcionario == null) {
-                writer.println("<html><body>Usuario não existe</body></html>");
+                request.setAttribute("loginErro", "Usuário ou senha incorretos!");
+                RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
+                view.forward(request, response);
             } else {
                 response.sendRedirect("paginaInicial.jsp");
             }

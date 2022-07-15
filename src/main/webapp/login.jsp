@@ -14,6 +14,7 @@
                     <input type="hidden" name="back" value="login" />
                     <input type="text" name="login" placeholder="username"/>
                     <input type="password" name="senha" placeholder="password"/>
+                    <span style="color: red">${loginErro}</span>
                     <input type="submit" value="Login">
 
                     <p class="message">Funcionario novo? <a href="FuncionarioController?action=cadastrarFuncionario">Create an account</a></p>

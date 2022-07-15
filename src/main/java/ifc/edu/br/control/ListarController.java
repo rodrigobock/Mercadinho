@@ -5,6 +5,8 @@
 package ifc.edu.br.control;
 
 import ifc.edu.br.dao.FuncionarioDAO;
+import ifc.edu.br.models.Funcionario;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,28 +17,97 @@ import java.io.IOException;
 @WebServlet(name = "ListarController", urlPatterns = {"/ListarController"})
 public class ListarController extends HttpServlet {
 
-    FuncionarioDAO fdao = new FuncionarioDAO();
-    
+    private static final long serialVersionUID = 1L;
+    private static String INSERT_OR_EDIT = "/cadastrarFuncionario.jsp";
+    private static String LIST_USER = "/listarFuncionarios.jsp";
+    private FuncionarioDAO fdao;
+
+    public ListarController() {
+        super();
+        fdao = new FuncionarioDAO();
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        
-        if (request.getParameter("listarFuncionarios") != null) {
-            request.setAttribute("funcionarios", fdao.todosFuncionarios());
-            getServletContext().getRequestDispatcher("/listarFuncionarios.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String forward = "";
+            String action = request.getParameter("action");
+
+            if (action.equalsIgnoreCase("delete")) {
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                fdao.deleteUser(userId);
+                forward = LIST_USER;
+                request.setAttribute("users", fdao.todosFuncionarios());
+            } else if (action.equalsIgnoreCase("edit")) {
+                forward = INSERT_OR_EDIT;
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                Funcionario funcionario = fdao.buscaFuncionario(userId);
+                request.setAttribute("funcionario", funcionario);
+            } else if (action.equalsIgnoreCase("listarFuncionarios")) {
+                forward = LIST_USER;
+                request.setAttribute("users", fdao.todosFuncionarios());
+            } else {
+                forward = INSERT_OR_EDIT;
+            }
+
+            RequestDispatcher view = request.getRequestDispatcher(forward);
+            view.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        request.setCharacterEncoding("UTF-8");
+
+        Funcionario func = new Funcionario();
+
+        func.setNome(request.getParameter("nome"));
+        func.setTelefone(request.getParameter("telefone"));
+        func.setCpf(request.getParameter("cpf"));
+        func.setCargo(request.getParameter("cargo"));
+        func.setLogin(request.getParameter("login"));
+        func.setSenha(request.getParameter("senha"));
+
+        String id = request.getParameter("id");
+
+        try {
+            if (fdao.ValidaLogin(func.getLogin())) {
+                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
+                getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+            } else if (id == null || id.isEmpty()) {
+                fdao.CriarUsuario(func);
+
+                RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
+                request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
+                request.setAttribute("users", fdao.todosFuncionarios());
+                view.forward(request, response);
+                // getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+            } else if (id != null || !id.isEmpty()) {
+                func.setId(Long.parseLong(request.getParameter("id")));
+                fdao.updateUser(func);
+
+                RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
+                request.setAttribute("atualizacaoOk", "Funcionário atualizado com sucesso");
+                request.setAttribute("users", fdao.todosFuncionarios());
+                view.forward(request, response);
+
+            } else {
+                request.setAttribute("msg", "Erro ao cadastrar!");
+                getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            request.setAttribute("msg", "Funcionário já existe no sistema");
+            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+        }
+
     }
 
     @Override

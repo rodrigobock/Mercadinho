@@ -6,12 +6,20 @@ package ifc.edu.br.dao;
 
 import ifc.edu.br.models.Funcionario;
 import ifc.edu.br.models.Pessoa;
+import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FuncionarioDAO {
@@ -25,23 +33,15 @@ public class FuncionarioDAO {
     }
 
     // INSERIR FUNCIONARIO    
-    public boolean CriarUsuario(String nome, String telefone, String cpf, String cargo, String login, String senha) throws Exception {
+    public boolean CriarUsuario(Funcionario f) throws Exception {
 
         EntityTransaction tx = em.getTransaction();
         if (!tx.isActive()) {
-            tx.begin();     
-        } 
+            tx.begin();
+        }
         try {
-            Funcionario func = new Funcionario();
-            func.setNome(nome);
-            func.setTelefone(telefone);
-            func.setCpf(cpf);
-            func.setCargo(cargo);
-            func.setLogin(login);
-            func.setSenha(senha);
-            func.setTipoCadastro("FUNCIONARIO");
-            em.persist(func);
-
+            tx.begin();
+            em.persist(f);
             tx.commit();
 
             return true;
@@ -51,31 +51,81 @@ public class FuncionarioDAO {
         return false;
     }
 
-    public boolean ValidaLogin(String login) throws SQLException{
-        
+    public boolean ValidaLogin(String login) throws SQLException {
+
         EntityTransaction tx = em.getTransaction();
         if (!tx.isActive()) {
-            tx.begin();     
-        }                
+            tx.begin();
+        }
         try {
-            
+
             Query q = em.createQuery("from Pessoa where login = :login and tipoCadastro = 'FUNCIONARIO'");
             q.setParameter("login", login);
-            
+
             Funcionario funcionario = (Funcionario) q.getSingleResult();
-            
+
             final Long result = funcionario.getId();
-            
-            return result != null && result > 0; 
+
+            return result != null && result > 0;
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return false;       
+        return false;
     }
+
     // BUSCAR TODOS
-    public List todosFuncionarios() {
-        List funcionarios = em.createQuery("from pessoa where tipoCadastro = 'FUNCIONARIO'").getResultList();
+    public List<Funcionario> todosFuncionarios() throws SQLException{
+
+        List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+
+            Query query = em.createQuery("from Pessoa where tipoCadastro = 'FUNCIONARIO'");
+            List<Funcionario> funcs = query.getResultList();
+            for (Funcionario f : funcs) {
+                Funcionario funcionario = new Funcionario();
+                funcionario.setId(f.getId());
+                funcionario.setNome(f.getNome());
+                funcionario.setTelefone(f.getTelefone());
+                funcionario.setCpf(f.getCpf());
+                funcionario.setCargo(f.getCargo());
+                funcionario.setLogin(f.getLogin());
+
+                funcionarios.add(funcionario);
+            }
+
         return funcionarios;
+    }
+
+    public Funcionario buscaFuncionario(Integer id) {
+        Query q = em.createQuery("from Pessoa where id = :id and tipoCadastro = 'FUNCIONARIO'");
+        q.setParameter("id", id);
+        Funcionario funcionario = (Funcionario) q.getSingleResult();
+        return funcionario;
+    }
+
+    public void deleteUser(int userId) {
+        Query q = em.createQuery("delete from Pessoa where id = :id");
+        q.setParameter("id", userId);
+        q.executeUpdate();
+    }
+
+    public void updateUser(Funcionario func) {
+        Query q = em.createQuery("UPDATE from Pessoa where "
+                + "nome = :nome,"
+                + "telefone = :telefone,"
+                + "cpf = :cpf,"
+                + "cargo = :cargo,"
+                + "login = :login,"
+                + "senha = :senha"
+                + "where id = :id");
+        q.setParameter("nome", func.getNome());
+        q.setParameter("telefone", func.getTelefone());
+        q.setParameter("cpf", func.getCpf());
+        q.setParameter("cargo", func.getCargo());
+        q.setParameter("login", func.getLogin());
+        q.setParameter("senha", func.getSenha());
+        q.setParameter("id", func.getId());
+
+        q.executeUpdate();
     }
 }

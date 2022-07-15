@@ -17,7 +17,7 @@
             <br> <button type="submit" name="RegVendas">Registrar Venda</button>
         </form>
         <form action="ListarController" method="get">
-            <br> <button type="submit" name="listarFuncionarios">Listar todos funcionários</button>
+           <a href="ListarController?action=listarFuncionarios">Update</a>
         </form>
     </body>
     <footer>

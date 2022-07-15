@@ -48,5 +48,5 @@ public class ProdutoDAO {
         List unidadeMedidas = em.createQuery("from UnidadeMedida", UnidadeMedida.class).getResultList();
         return unidadeMedidas;
     }
-
+    
 }

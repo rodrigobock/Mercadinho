@@ -5,10 +5,8 @@
 package ifc.edu.br.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "cliente")
 public class Cliente extends Pessoa {
 
     private Integer qtdeCompras;

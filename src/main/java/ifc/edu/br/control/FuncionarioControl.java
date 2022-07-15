@@ -5,6 +5,7 @@
 package ifc.edu.br.control;
 
 import ifc.edu.br.dao.FuncionarioDAO;
+import ifc.edu.br.models.Funcionario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -47,11 +48,20 @@ public class FuncionarioControl extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         
+        Funcionario func = new Funcionario();
+        
+        func.setNome(request.getParameter("nome"));
+        func.setTelefone(request.getParameter("telefone"));
+        func.setCpf(request.getParameter("cpf"));
+        func.setCargo(request.getParameter("cargo"));
+        func.setLogin(request.getParameter("login"));
+        func.setSenha(request.getParameter("senha"));
+        
         try {
-            if (fdao.ValidaLogin(login)) {
-                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");                
+            if (fdao.ValidaLogin(func.getLogin())) {
+                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
                 getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
-            }else if (fdao.CriarUsuario(nome, telefone, cpf, cargo, login, senha)) {
+            }else if (fdao.CriarUsuario(func)) {
                 request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
                 getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
             }else{

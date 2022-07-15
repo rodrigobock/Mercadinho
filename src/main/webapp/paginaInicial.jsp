@@ -1,9 +1,3 @@
-<%-- 
-    Document   : paginaInicial
-    Created on : 11 de jul de 2022, 20:39:08
-    Author     : Rodrigo
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +11,9 @@
             <br> <button type="submit" name="RegVendas">Registrar Venda</button>
         </form>
         <form action="ListarController" method="get">
-           <a href="ListarController?action=listarFuncionarios">Update</a>
+           <button>
+               <a href="ListarController?action=listarFuncionarios">Listar Usuários</a>
+           </button>
         </form>
     </body>
     <footer>

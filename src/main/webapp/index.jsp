@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : Jul 14, 2022, 7:40:09 PM
-    Author     : nicoe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

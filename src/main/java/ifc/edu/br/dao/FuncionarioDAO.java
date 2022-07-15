@@ -5,21 +5,13 @@
 package ifc.edu.br.dao;
 
 import ifc.edu.br.models.Funcionario;
-import ifc.edu.br.models.Pessoa;
-import ifc.edu.br.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 public class FuncionarioDAO {
@@ -104,7 +96,7 @@ public class FuncionarioDAO {
     }
 
     public void deleteUser(int userId) {
-        Query q = em.createQuery("delete from Pessoa where id = :id");
+        Query q = em.createNativeQuery("delete from Pessoa where id = :id");
         q.setParameter("id", userId);
         q.executeUpdate();
     }

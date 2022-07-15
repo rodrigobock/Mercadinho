@@ -1,9 +1,3 @@
-<%-- 
-    Document   : registrarVendas
-    Created on : 12 de jul de 2022, 13:23:13
-    Author     : Rodrigo
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

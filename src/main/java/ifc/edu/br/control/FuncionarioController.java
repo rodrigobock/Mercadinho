@@ -67,6 +67,7 @@ public class FuncionarioController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         Funcionario func = new Funcionario();
 
@@ -84,13 +85,18 @@ public class FuncionarioController extends HttpServlet {
 
                 if (fdao.ValidaLogin(func.getLogin())) {
                     request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
-                    getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+                    RequestDispatcher view = request.getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario");
+                    //getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario").forward(request, response);
+                    view.forward(request, response);
                 } else {
                     fdao.CriarUsuario(func);
 
-                    RequestDispatcher view = request.getRequestDispatcher("login");
+                    //Tava tentando realizar login e não encontrava usuário
+                    //RequestDispatcher view = request.getRequestDispatcher("login");
                     request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
-                    view.forward(request, response);
+                    //Adicionado para manter na mesma página após Cadastro de Funcionário
+                    getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario").include(request, response);
+                    //view.forward(request, response);
                 }
 
             } else if (id != null || !id.isEmpty()) {

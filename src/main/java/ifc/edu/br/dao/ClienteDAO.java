@@ -73,7 +73,9 @@ public class ClienteDAO {
     public List<Cliente> TodosClientes() {
         // conexão
         EntityTransaction tx = em.getTransaction();
-        tx.begin();
+        if (!tx.isActive()) {
+            tx.begin();     
+        } 
 
         try {
             Query q = em.createQuery("from pessoa where tipoCadastro = 'CLIENTE'");

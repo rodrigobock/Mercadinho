@@ -27,7 +27,9 @@ public class ProdutoDAO {
     public void CriarProduto(Produto p) {
         EntityTransaction tx = em.getTransaction();
 
-        tx.begin();
+        if (!tx.isActive()) {
+            tx.begin();     
+        } 
         em.persist(p);
         tx.commit();
     }

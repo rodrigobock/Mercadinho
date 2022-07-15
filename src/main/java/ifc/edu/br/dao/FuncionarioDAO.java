@@ -58,6 +58,8 @@ public class FuncionarioDAO {
 
             final Long result = funcionario.getId();
 
+            tx.commit();
+
             return result != null && result > 0;
 
         } catch (Exception e) {
@@ -67,9 +69,15 @@ public class FuncionarioDAO {
     }
 
     // BUSCAR TODOS
-    public List<Funcionario> todosFuncionarios() throws SQLException{
+    public List<Funcionario> todosFuncionarios() throws SQLException {
 
-        List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+        EntityTransaction tx = em.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();
+        }
+        try {
+
+            List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 
             Query query = em.createQuery("from Pessoa where tipoCadastro = 'FUNCIONARIO'");
             List<Funcionario> funcs = query.getResultList();
@@ -84,40 +92,77 @@ public class FuncionarioDAO {
 
                 funcionarios.add(funcionario);
             }
+            tx.commit();
+            return funcionarios;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tx.commit();
+        return null;
 
-        return funcionarios;
     }
 
-    public Funcionario buscaFuncionario(Integer id) {
-        Query q = em.createQuery("from Pessoa where id = :id and tipoCadastro = 'FUNCIONARIO'");
-        q.setParameter("id", id);
-        Funcionario funcionario = (Funcionario) q.getSingleResult();
-        return funcionario;
+    public Funcionario buscaFuncionario(Long id) {
+        EntityTransaction tx = em.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();
+        }
+        try {
+
+            Query q = em.createQuery("from Pessoa where id = :id and tipoCadastro = 'FUNCIONARIO'");
+            q.setParameter("id", id);
+            Funcionario funcionario = (Funcionario) q.getSingleResult();
+            tx.commit();
+            return funcionario;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tx.commit();
+        return null;
     }
 
     public void deleteUser(int userId) {
-        Query q = em.createNativeQuery("delete from Pessoa where id = :id");
-        q.setParameter("id", userId);
-        q.executeUpdate();
+        EntityTransaction tx = em.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();
+        }
+        try {
+            Query q = em.createNativeQuery("delete from Pessoa where id = :id");
+            q.setParameter("id", userId);
+            q.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tx.commit();
     }
 
     public void updateUser(Funcionario func) {
-        Query q = em.createQuery("UPDATE from Pessoa where "
-                + "nome = :nome,"
-                + "telefone = :telefone,"
-                + "cpf = :cpf,"
-                + "cargo = :cargo,"
-                + "login = :login,"
-                + "senha = :senha"
-                + "where id = :id");
-        q.setParameter("nome", func.getNome());
-        q.setParameter("telefone", func.getTelefone());
-        q.setParameter("cpf", func.getCpf());
-        q.setParameter("cargo", func.getCargo());
-        q.setParameter("login", func.getLogin());
-        q.setParameter("senha", func.getSenha());
-        q.setParameter("id", func.getId());
+        EntityTransaction tx = em.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();
+        }
+        try {
+            Query q = em.createQuery("UPDATE from Pessoa SET "
+                    + "nome = :nome,"
+                    + "telefone = :telefone,"
+                    + "cpf = :cpf,"
+                    + "cargo = :cargo,"
+                    + "login = :login,"
+                    + "senha = :senha "
+                    + "where id = :id");
+            q.setParameter("nome", func.getNome());
+            q.setParameter("telefone", func.getTelefone());
+            q.setParameter("cpf", func.getCpf());
+            q.setParameter("cargo", func.getCargo());
+            q.setParameter("login", func.getLogin());
+            q.setParameter("senha", func.getSenha());
+            q.setParameter("id", func.getId());
 
-        q.executeUpdate();
+            q.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tx.commit();
     }
 }

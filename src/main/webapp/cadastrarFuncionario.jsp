@@ -18,13 +18,13 @@
                         + "\">Voltar</a>");%>
                 <h1 class="title">Cadastro de funcionário</h1>
                 <form method="POST" action='FuncionarioController' name="frmAddUser">
-                    <input type="text" readonly="readonly" name="id" placeholder="ID" value="<c:out value="${user.id}"/>" /> <br /> 
-                    <input type="text" name="nome"  placeholder="Nome" value="<c:out value="${user.nome}"/>" /> <br /> 
-                    <input type="text" name="telefone" placeholder="Telefone" value="<c:out value="${user.telefone}"/>" /> <br /> 
-                    <input type="text" name="cpf" placeholder="CPF" value="<c:out value="${user.cpf}"/>" /> <br /> 
-                    <input type="text" name="cargo" placeholder="Cargo" value="<c:out value="${user.cargo}"/>" /> <br /> 
-                    <input type="text" name="login" placeholder="Login" value="<c:out value="${user.login}"/>" /> <br /> 
-                    <input type="text" name="senha" placeholder="Senha" value="<c:out value="${user.senha}"/>" /> <br />                        
+                    <input type="text" readonly="readonly" name="id" placeholder="ID" value="<c:out value="${funcionario.id}"/>" /> <br /> 
+                    <input type="text" name="nome"  placeholder="Nome" value="<c:out value="${funcionario.nome}"/>" /> <br /> 
+                    <input type="text" name="telefone" placeholder="Telefone" value="<c:out value="${funcionario.telefone}"/>" /> <br /> 
+                    <input type="text" name="cpf" placeholder="CPF" value="<c:out value="${funcionario.cpf}"/>" /> <br /> 
+                    <input type="text" name="cargo" placeholder="Cargo" value="<c:out value="${funcionario.cargo}"/>" /> <br /> 
+                    <input type="text" name="login" placeholder="Login" value="<c:out value="${funcionario.login}"/>" /> <br /> 
+                    <input type="text" name="senha" placeholder="Senha" value="<c:out value="${funcionario.senha}"/>" /> <br />                        
                     <span style="color: red">${cadastroErro}</span>
                     <span style="color: greenyellow">${cadastroOk}</span>
                     <span style="color: greenyellow">${atualizacaoOk}</span>

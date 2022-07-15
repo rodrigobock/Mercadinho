@@ -45,13 +45,13 @@ public class FuncionarioController extends HttpServlet {
                 request.setAttribute("users", fdao.todosFuncionarios());
             } else if (action.equalsIgnoreCase("edit")) {
                 forward = INSERT_OR_EDIT;
-                String id = request.getParameter("id");
-                Funcionario funcionario = fdao.buscaFuncionario(Integer.parseInt(id));
+                String id = request.getParameter("userId");
+                Funcionario funcionario = fdao.buscaFuncionario(Long.parseLong(id));
                 request.setAttribute("funcionario", funcionario);
             } else if (action.equalsIgnoreCase("listarFuncionarios")) {
                 forward = LIST_USER;
                 request.setAttribute("users", fdao.todosFuncionarios());
-            } else{
+            } else {
                 forward = INSERT_OR_EDIT;
             }
 
@@ -80,24 +80,25 @@ public class FuncionarioController extends HttpServlet {
         String id = request.getParameter("id");
 
         try {
-            if (fdao.ValidaLogin(func.getLogin())) {
-                request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
-                getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
-            } else if (id == null || id.isEmpty()) {
-                fdao.CriarUsuario(func);
+            if (id == null || id.isEmpty()) {
 
-                RequestDispatcher view = request.getRequestDispatcher("login");
-                request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
-                request.setAttribute("users", fdao.todosFuncionarios());
-                view.forward(request, response);
-                // getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+                if (fdao.ValidaLogin(func.getLogin())) {
+                    request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
+                    getServletContext().getRequestDispatcher("/cadastrarFuncionario.jsp").include(request, response);
+                } else {
+                    fdao.CriarUsuario(func);
+
+                    RequestDispatcher view = request.getRequestDispatcher("login");
+                    request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
+                    view.forward(request, response);
+                }
+
             } else if (id != null || !id.isEmpty()) {
                 func.setId(Long.parseLong(request.getParameter("id")));
                 fdao.updateUser(func);
 
-                RequestDispatcher view = request.getRequestDispatcher(InitialPage);
+                RequestDispatcher view = request.getRequestDispatcher("login");
                 request.setAttribute("atualizacaoOk", "Funcionário atualizado com sucesso");
-                request.setAttribute("users", fdao.todosFuncionarios());
                 view.forward(request, response);
 
             } else {

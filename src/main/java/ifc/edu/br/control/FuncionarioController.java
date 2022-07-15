@@ -14,15 +14,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ListarController", urlPatterns = {"/ListarController"})
-public class ListarController extends HttpServlet {
+@WebServlet(name = "FuncionarioController", urlPatterns = {"/FuncionarioController"})
+public class FuncionarioController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private static String INSERT_OR_EDIT = "/cadastrarFuncionario.jsp";
     private static String LIST_USER = "/listarFuncionarios.jsp";
+    private static String InitialPage = "/paginaInical.jsp";
     private FuncionarioDAO fdao;
 
-    public ListarController() {
+    public FuncionarioController() {
         super();
         fdao = new FuncionarioDAO();
     }
@@ -44,13 +45,13 @@ public class ListarController extends HttpServlet {
                 request.setAttribute("users", fdao.todosFuncionarios());
             } else if (action.equalsIgnoreCase("edit")) {
                 forward = INSERT_OR_EDIT;
-                int userId = Integer.parseInt(request.getParameter("userId"));
-                Funcionario funcionario = fdao.buscaFuncionario(userId);
+                String id = request.getParameter("id");
+                Funcionario funcionario = fdao.buscaFuncionario(Integer.parseInt(id));
                 request.setAttribute("funcionario", funcionario);
             } else if (action.equalsIgnoreCase("listarFuncionarios")) {
                 forward = LIST_USER;
                 request.setAttribute("users", fdao.todosFuncionarios());
-            } else {
+            } else{
                 forward = INSERT_OR_EDIT;
             }
 
@@ -85,7 +86,7 @@ public class ListarController extends HttpServlet {
             } else if (id == null || id.isEmpty()) {
                 fdao.CriarUsuario(func);
 
-                RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
+                RequestDispatcher view = request.getRequestDispatcher("login");
                 request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
                 request.setAttribute("users", fdao.todosFuncionarios());
                 view.forward(request, response);
@@ -94,7 +95,7 @@ public class ListarController extends HttpServlet {
                 func.setId(Long.parseLong(request.getParameter("id")));
                 fdao.updateUser(func);
 
-                RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
+                RequestDispatcher view = request.getRequestDispatcher(InitialPage);
                 request.setAttribute("atualizacaoOk", "Funcionário atualizado com sucesso");
                 request.setAttribute("users", fdao.todosFuncionarios());
                 view.forward(request, response);

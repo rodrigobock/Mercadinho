@@ -31,13 +31,13 @@
                         <td><c:out value="${user.telefone}" /></td>
                         <td><c:out value="${user.cpf}" /></td>
                         <td><c:out value="${user.login}" /></td>
-                        <td><a href="ListarController?action=edit&userId=<c:out value="${user.id}"/>">Update</a></td>
-                        <td><a href="ListarController?action=delete&userId=<c:out value="${user.id}"/>">Delete</a></td>
+                        <td><a href="FuncionarioController?action=edit&userId=<c:out value="${user.id}"/>">Update</a></td>
+                        <td><a href="FuncionarioController?action=delete&userId=<c:out value="${user.id}"/>">Delete</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <p><a href="ListarController?action=insert">Add User</a></p>
+        <p><a href="FuncionarioController?action=insert">Add User</a></p>
     </body>
 
 </html>

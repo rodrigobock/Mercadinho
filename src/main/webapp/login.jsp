@@ -15,8 +15,8 @@
                     <input type="text" name="login" placeholder="username"/>
                     <input type="password" name="senha" placeholder="password"/>
                     <input type="submit" value="Login">
-                    
-                    <p class="message">Funcionario novo? <a href="FuncionarioControl">Create an account</a></p>
+
+                    <p class="message">Funcionario novo? <a href="FuncionarioController?action=cadastrarFuncionario">Create an account</a></p>
                     <br>
                     <p class="message">Cliente novo? <a href="ClienteControl">Create an account</a></p>
                 </form>

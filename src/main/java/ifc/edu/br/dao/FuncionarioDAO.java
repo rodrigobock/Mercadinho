@@ -32,7 +32,7 @@ public class FuncionarioDAO {
             tx.begin();
         }
         try {
-            tx.begin();
+            f.setTipoCadastro("FUNCIONARIO");
             em.persist(f);
             tx.commit();
 

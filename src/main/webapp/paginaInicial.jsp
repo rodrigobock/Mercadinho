@@ -10,9 +10,9 @@
             <br> <button type="submit" name="CadProdutos">Cadastrar Produtos</button>
             <br> <button type="submit" name="RegVendas">Registrar Venda</button>
         </form>
-        <form action="ListarController" method="get">
+        <form action="FuncionarioController" method="get">
            <button>
-               <a href="ListarController?action=listarFuncionarios">Listar Usuários</a>
+               <a href="FuncionarioController?action=listarFuncionarios">Listar Usuários</a>
            </button>
         </form>
     </body>

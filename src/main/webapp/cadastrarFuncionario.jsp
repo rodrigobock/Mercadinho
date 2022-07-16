@@ -33,7 +33,7 @@
                     <input type="text" name="login" required oninvalid="this.setCustomValidity('Insira um Login!')"
                            oninput="this.setCustomValidity('')" placeholder="Login" 
                            value="<c:out value="${funcionario.login}"/>" /> <br /> 
-                    <input type="text" name="senha" required oninvalid="this.setCustomValidity('Insira uma Senha!')"
+                    <input type="password" name="senha" required oninvalid="this.setCustomValidity('Insira uma Senha!')"
                            oninput="this.setCustomValidity('')" placeholder="Senha" 
                            value="<c:out value="${funcionario.senha}"/>" /> <br />                        
                     <span style="color: red">${cadastroErro}</span>

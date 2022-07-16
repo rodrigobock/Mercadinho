@@ -2,6 +2,7 @@ package ifc.edu.br.control;
 
 import ifc.edu.br.dao.FuncionarioDAO;
 import ifc.edu.br.dao.LoginDAO;
+import ifc.edu.br.dao.ProdutoDAO;
 import ifc.edu.br.models.Funcionario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -76,6 +77,10 @@ public class HomeController extends HttpServlet{
         HttpSession session = request.getSession(true);
         
         FuncionarioDAO fdao = new FuncionarioDAO();
+        
+        ProdutoDAO pdao = new ProdutoDAO();
+        
+        RequestDispatcher view = null;
 
         // configuração para corrigir questões de acento
         request.setCharacterEncoding("UTF-8");
@@ -83,11 +88,15 @@ public class HomeController extends HttpServlet{
 
         String btn = request.getParameter("btn");
         
+        
+        
         switch (btn) {
             case "cadFunc":
                 
-            case "cadProd":                
-                
+            case "cadProd":
+                request.setAttribute("ums", pdao.todosUM());
+                view = request.getRequestDispatcher("/cadProdutos.jsp");
+                view.forward(request, response);
             case "cadLoja":
                 
             case "registraVenda":
@@ -98,7 +107,7 @@ public class HomeController extends HttpServlet{
                 } catch (SQLException ex) {
                     System.err.println(ex.getMessage());
                 }
-                RequestDispatcher view = request.getRequestDispatcher("/listarFuncionarios.jsp");
+                view = request.getRequestDispatcher("/listarFuncionarios.jsp");
                 view.forward(request, response);
 
             case "listaProd":

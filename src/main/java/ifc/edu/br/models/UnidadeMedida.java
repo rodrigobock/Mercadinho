@@ -5,7 +5,10 @@
 package ifc.edu.br.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,6 +16,8 @@ import jakarta.persistence.Table;
 public class UnidadeMedida {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+    @SequenceGenerator(name = "produto_seq", initialValue = 1)
     private Long id;
     private String tipo;
 

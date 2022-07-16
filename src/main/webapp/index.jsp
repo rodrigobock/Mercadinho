@@ -8,9 +8,9 @@
     </head>
     <body>
         <div class="login-page">
-            <a href="login" style="text-decoration: none;">
-                <button class="login-button">LOGIN</button>
-            </a> 
+            <form action="login" method="GET" >
+                <input type="submit" value="LOGIN">
+            </form>
         </div>
     </body>
     <jsp:include page="footer.jsp"/>

@@ -10,15 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import ifc.edu.br.utils.PasswordHash;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "Login", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
-    
-    private PasswordHash hash;
+@WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
+public class HomeController extends HttpServlet{
     
     private String returnCookieLogin(HttpServletRequest request) {
         Cookie listaCookies[] = request.getCookies();
@@ -79,38 +76,32 @@ public class LoginController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        String login = request.getParameter("login");
-        String senha = hash.hashPassword(request.getParameter("senha"));
-
-        LoginDAO ldao = new LoginDAO();
-
-        try {
-            PrintWriter writer = response.getWriter();
-            Funcionario funcionario = ldao.validaLogin(login, senha);
-            if (funcionario == null) {
-                request.setAttribute("loginErro", "Usuário ou senha incorretos!");
-                RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
-                view.forward(request, response);
-            } else {
+        String btn = request.getParameter("btn");
+        
+        switch (btn) {
+            case "Home":
                 
-                session.setAttribute("login", login);
+            case "User":
                 
-                Cookie cookieLogin = new Cookie("CookieLogin-1-login", login);
-                cookieLogin.setMaxAge(24 * 60 * 60 * 30);
-                response.addCookie(cookieLogin);
+            case "List":
                 
-                response.sendRedirect("paginaInicial.jsp");
-            }
+            case "Logout":
+                session.removeAttribute("login");
+            
+                Cookie ckLogin = new Cookie("CookieLogin-1-login", "");
+                ckLogin.setMaxAge(0);
+                response.addCookie(ckLogin);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+                response.sendRedirect("login.jsp");
+                break;
+            default:
+                response.sendRedirect("login.jsp");
+        }       
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-
+    
 }

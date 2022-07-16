@@ -14,56 +14,60 @@
             </div>
             <form method="post" action="HomeController">
                 <ul>
-                    <li>
-                        <a href="#">
-                            <button name="btn" value="Home">
-                                <i class='bx bx-home-alt-2' ></i>
-                                <span class="linkname">Home</span>
-                            </button>
-                        </a>
+                    <li>                        
+                        <button name="btn" value="cadFunc">
+                            <i class='bx bxs-face' ></i>
+                            <span class="linkname">Cadastrar Funcionário</span>
+                        </button>                        
+                    </li>
+                    <li>                        
+                        <button name="btn" value="cadProd">
+                            <i class='bx bx-package'></i>
+                            <span class="linkname">Cadastrar Produtos</span>
+                        </button>                        
+                    </li>
+                    <li>                        
+                        <button name="btn" value="cadLoja">
+                            <i class='bx bxs-store'></i>
+                            <span class="linkname">Cadastrar Loja</span>
+                        </button>                        
                     </li>
                     <li>
-                        <a href="#">
-                            <button name="btn" value="User">
-                                <i class='bx bxs-face' ></i>
-                                <span class="linkname">User</span>
-                            </button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <button name="btn" value="User">
-                                <i class='bx bx-cart' ></i>
-                                <span class="linkname">Sell</span>
-                            </button>
-                        </a>
+                        <button name="btn" value="registraVenda">
+                            <i class='bx bx-cart' ></i>
+                            <span class="linkname">Registrar Venda</span>
+                        </button>
                     </li>                
-                    <li>
-                        <a href="#">
-                            <button name="btn" value="List">
-                                <i class='bx bx-list-ol' ></i>
-                                <span class="linkname">List</span>
-                            </button>
-                        </a>
+                    <li>                        
+                        <button name="btn" value="listaFunc">
+                            <i class='bx bxs-group'></i>
+                            <span class="linkname">Listar Funcionarios</span>
+                        </button>
                     </li>
-                    <li>
-                        <a href="#">                        
-                            <button name="btn" value="Logout">
-                                <i class='bx bx-log-out' ></i>
-                                <span class="linkname">Log out</span>
-                            </button>                        
-                        </a>
+                    <li>                        
+                        <button name="btn" value="listaProd">
+                            <i class='bx bxs-barcode bx-tada' ></i>
+                            <span class="linkname">Listar Produtos</span>
+                        </button>
+                    </li>
+                    <li>                        
+                        <button name="btn" value="listaLojas">
+                            <i class='bx bx-buildings' ></i>
+                            <span class="linkname">Listar Lojas</span>
+                        </button>
+                    </li>
+                    <li>                        
+                        <button name="btn" value="Logout">
+                            <i class='bx bx-log-out' ></i>
+                            <span class="linkname">Log out</span>
+                        </button>                        
+                    </li>
                 </ul>
             </form>
         </div>
         <form action="CadProdutos" method="get">
             <br> <button type="submit" name="CadProdutos">Cadastrar Produtos</button>
             <br> <button type="submit" name="RegVendas">Registrar Venda</button>
-        </form>
-        <form action="FuncionarioController" method="get">
-            <button>
-                <a href="FuncionarioController?action=listarFuncionarios">Listar Usuários</a>
-            </button>
         </form>
         <form action="LojaController" method="GET" >
             <input type="submit" value="Cadastro de Loja">

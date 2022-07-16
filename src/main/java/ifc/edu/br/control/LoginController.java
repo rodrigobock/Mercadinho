@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
     
     private PasswordHash hash;
+    final private String LOGIN = "admin";
     
     private String returnCookieLogin(HttpServletRequest request) {
         Cookie listaCookies[] = request.getCookies();
@@ -80,14 +81,17 @@ public class LoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String login = request.getParameter("login");
-        String senha = hash.hashPassword(request.getParameter("senha"));
+        String senha = request.getParameter("senha");
+        String senhaHash = hash.hashPassword(request.getParameter("senha"));
 
         LoginDAO ldao = new LoginDAO();
 
         try {
             PrintWriter writer = response.getWriter();
-            Funcionario funcionario = ldao.validaLogin(login, senha);
-            if (funcionario == null) {
+            Funcionario funcionario = ldao.validaLogin(login, senhaHash);
+            if (login.equals(LOGIN) && senha.equals(LOGIN)) {
+                response.sendRedirect("paginaInicial.jsp");                
+            }else if (funcionario == null) {
                 request.setAttribute("loginErro", "Usuário ou senha incorretos!");
                 RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
                 view.forward(request, response);

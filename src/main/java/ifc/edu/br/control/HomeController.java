@@ -84,11 +84,15 @@ public class HomeController extends HttpServlet{
         String btn = request.getParameter("btn");
         
         switch (btn) {
-            case "Home":
+            case "cadFunc":
                 
-            case "User":
+            case "cadProd":                
                 
-            case "List":
+            case "cadLoja":
+                
+            case "registraVenda":
+                
+            case "listaFunc":
                 try {
                     request.setAttribute("users", fdao.todosFuncionarios());
                 } catch (SQLException ex) {
@@ -97,6 +101,10 @@ public class HomeController extends HttpServlet{
                 RequestDispatcher view = request.getRequestDispatcher("/listarFuncionarios.jsp");
                 view.forward(request, response);
 
+            case "listaProd":
+                
+            case "listaLojas":
+            
             case "Logout":
                 session.removeAttribute("login");
             

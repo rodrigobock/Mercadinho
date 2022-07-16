@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import java.util.List;
 
 public class LojaDAO {
@@ -36,6 +37,13 @@ public class LojaDAO {
     public List consultarLojas() {
         List lojas = em.createQuery("from Loja", Loja.class).getResultList();
         return lojas;
+    }
+
+    public Loja consultarLoja(Long id) {
+        Query q = em.createQuery("from Loja where id = :id");
+        q.setParameter("id", id);
+        Loja loja = (Loja) q.getSingleResult();
+        return loja;
     }
 
 }

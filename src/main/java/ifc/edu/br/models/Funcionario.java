@@ -62,5 +62,12 @@ public class Funcionario extends Pessoa{
         this.senha = senha;
     }
 
+    public Loja getLoja() {
+        return loja;
+    }
+
+    public void setLoja(Loja loja) {
+        this.loja = loja;
+    }
 
 }

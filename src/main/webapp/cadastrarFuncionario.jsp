@@ -35,7 +35,18 @@
                            value="<c:out value="${funcionario.login}"/>" /> <br /> 
                     <input type="password" name="senha" required oninvalid="this.setCustomValidity('Insira uma Senha!')"
                            oninput="this.setCustomValidity('')" placeholder="Senha" 
-                           value="<c:out value="${funcionario.senha}"/>" /> <br />                        
+                           value="<c:out value="${funcionario.senha}"/>" /> <br /> 
+                    Loja 
+                    <select name="loja">
+                        <%
+                            ArrayList<Loja> lojas = (ArrayList<Loja>) request.getAttribute("lojas");
+                            for (Loja loja : lojas) {
+                        %>
+                        <option value="<%=loja.getId()%>"><%=loja.getNome()%></option>
+                        <%
+                            }
+                        %>
+                    </select> <br>
                     <span style="color: red">${cadastroErro}</span>
                     <span style="color: greenyellow">${cadastroOk}</span>
                     <span style="color: greenyellow">${atualizacaoOk}</span>

@@ -5,6 +5,7 @@
 package ifc.edu.br.control;
 
 import ifc.edu.br.dao.FuncionarioDAO;
+import ifc.edu.br.dao.LojaDAO;
 import ifc.edu.br.models.Funcionario;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -23,11 +24,13 @@ public class FuncionarioController extends HttpServlet {
     private static String LIST_USER = "/listarFuncionarios.jsp";
     private static String InitialPage = "/paginaInical.jsp";
     private FuncionarioDAO fdao;
+    private LojaDAO ldao;
     private PasswordHash hash;
 
     public FuncionarioController() {
         super();
         fdao = new FuncionarioDAO();
+        ldao = new LojaDAO();
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -55,6 +58,7 @@ public class FuncionarioController extends HttpServlet {
                 request.setAttribute("users", fdao.todosFuncionarios());
             } else {
                 forward = INSERT_OR_EDIT;
+                request.setAttribute("lojas", ldao.consultarLojas());
             }
 
             RequestDispatcher view = request.getRequestDispatcher(forward);
@@ -77,11 +81,12 @@ public class FuncionarioController extends HttpServlet {
         func.setTelefone(request.getParameter("telefone"));
         func.setCpf(request.getParameter("cpf"));
         func.setCargo(request.getParameter("cargo"));
-        func.setLogin(request.getParameter("login"));                
+        func.setLogin(request.getParameter("login"));
         func.setSenha(hash.hashPassword(request.getParameter("senha")));
+        func.setLoja(ldao.consultarLoja(validaLong(request.getParameter("loja"))));
 
         String id = request.getParameter("id");
-        
+
         try {
             if (id == null || id.isEmpty()) {
 
@@ -110,10 +115,18 @@ public class FuncionarioController extends HttpServlet {
                 getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            request.setAttribute("msg", "Funcionário já existe no sistema");
+            request.setAttribute("msg", "Ocorreu algum erro no cadastro");
             getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
         }
 
+    }
+
+    private Long validaLong(String s) {
+        try {
+            return Long.parseLong(s);
+        } catch (Exception e) {
+            return 0L;
+        }
     }
 
     @Override

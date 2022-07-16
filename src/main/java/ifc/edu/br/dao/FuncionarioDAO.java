@@ -54,13 +54,13 @@ public class FuncionarioDAO {
             Query q = em.createQuery("from Pessoa where login = :login and tipoCadastro = 'FUNCIONARIO'");
             q.setParameter("login", login);
 
-            Funcionario funcionario = (Funcionario) q.getSingleResult();
+            List results = q.getResultList();
 
-            final Long result = funcionario.getId();
-
-            tx.commit();
-
-            return result != null && result > 0;
+            if (results.isEmpty() || results.size() == 0) {
+                return false;
+            }else{
+                return true;
+            }
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

@@ -1,5 +1,6 @@
 package ifc.edu.br.control;
 
+import ifc.edu.br.dao.FuncionarioDAO;
 import ifc.edu.br.dao.LoginDAO;
 import ifc.edu.br.models.Funcionario;
 import jakarta.servlet.ServletException;
@@ -13,10 +14,12 @@ import java.sql.SQLException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
 public class HomeController extends HttpServlet{
-    
+        
     private String returnCookieLogin(HttpServletRequest request) {
         Cookie listaCookies[] = request.getCookies();
         if (listaCookies != null) {
@@ -71,6 +74,8 @@ public class HomeController extends HttpServlet{
             throws ServletException, IOException {
         
         HttpSession session = request.getSession(true);
+        
+        FuncionarioDAO fdao = new FuncionarioDAO();
 
         // configuração para corrigir questões de acento
         request.setCharacterEncoding("UTF-8");
@@ -84,7 +89,14 @@ public class HomeController extends HttpServlet{
             case "User":
                 
             case "List":
-                
+                try {
+                    request.setAttribute("users", fdao.todosFuncionarios());
+                } catch (SQLException ex) {
+                    System.err.println(ex.getMessage());
+                }
+                RequestDispatcher view = request.getRequestDispatcher("/listarFuncionarios.jsp");
+                view.forward(request, response);
+
             case "Logout":
                 session.removeAttribute("login");
             

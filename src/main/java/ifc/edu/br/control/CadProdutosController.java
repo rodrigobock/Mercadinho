@@ -30,7 +30,7 @@ public class CadProdutosController extends HttpServlet {
             request.setAttribute("ums", pdao.todosUM());
             getServletContext().getRequestDispatcher("/cadProdutos.jsp").forward(request, response);
         } else if (request.getParameter("RegVendas") != null) {
-            request.setAttribute("produtos", pdao.consultarPodutos());
+            request.setAttribute("produtos", pdao.consultarProdutos());
             getServletContext().getRequestDispatcher("/registrarVendas.jsp").forward(request, response);
         }
     }

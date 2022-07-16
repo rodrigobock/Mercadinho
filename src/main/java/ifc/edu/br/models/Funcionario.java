@@ -5,6 +5,7 @@
 package ifc.edu.br.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Funcionario extends Pessoa{
@@ -12,6 +13,9 @@ public class Funcionario extends Pessoa{
     private String cargo;
     private String login;
     private String senha;
+    
+    @ManyToOne
+    private Loja loja;    
  
     public Funcionario() {
     }

@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -20,8 +19,7 @@ public class Loja {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loja_seq")
     @SequenceGenerator(name = "loja_seq", initialValue = 1)
     private Long id;
-    @ManyToOne
-    private Funcionario funcionario;    
+
     private String nome;
     private String cnpj;
     private String cep;
@@ -29,8 +27,7 @@ public class Loja {
     public Loja() {
     }
 
-    public Loja(Funcionario funcionario, String nome, String cnpj, String cep) {
-        this.funcionario = funcionario;
+    public Loja(String nome, String cnpj, String cep) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.cep = cep;
@@ -67,12 +64,5 @@ public class Loja {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }            
+            
 }

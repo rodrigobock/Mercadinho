@@ -35,15 +35,16 @@ public class ProdutoDAO {
     }
 
     // BUSCAR TODOS
-    public List consultarPodutos() {
+    public List consultarProdutos() {
         List produtos = em.createQuery("from Produto", Produto.class).getResultList();
         return produtos;
     }
 
     public UnidadeMedida consultarUM(Long id) {
-        Query q = em.createQuery("from UnidadeMedida where id = :id", UnidadeMedida.class);
+        Query q = em.createQuery("from UnidadeMedida where id = :id");
         q.setParameter("id", id);
-        return (UnidadeMedida) q.getSingleResult();
+        UnidadeMedida um = (UnidadeMedida) q.getSingleResult();
+        return um;
     }
 
     public List todosUM() {

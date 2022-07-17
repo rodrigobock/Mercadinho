@@ -51,7 +51,7 @@ public class FuncionarioController extends HttpServlet {
             } else if (action.equalsIgnoreCase("edit")) {
                 forward = INSERT_OR_EDIT;
                 String id = request.getParameter("userId");
-                Funcionario funcionario = fdao.buscaFuncionario(Long.parseLong(id));
+                Funcionario funcionario = fdao.consultarFuncionario(Long.parseLong(id));
                 request.setAttribute("funcionario", funcionario);
             } else if (action.equalsIgnoreCase("listarFuncionarios")) {
                 forward = LIST_USER;

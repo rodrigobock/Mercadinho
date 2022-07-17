@@ -16,15 +16,11 @@
             <div class="form">
                 <a href="login">Voltar</a>
                 <h1 class="title">Cadastro de venda</h1>
-                <form method="POST" action='RegVendas' name="frmAddVenda">
+                <form method="POST" action='RegVendas'>
                     Funcionário <br/>
-                    <input type="text" disabled="true" name="nome" required oninvalid="this.setCustomValidity('Insira um nome!')"
-                           oninput="this.setCustomValidity('')" placeholder="Nome" 
-                           value="<c:out value="${funcionario.nome}"/>" /> <br /> 
+                    <input type="text" name="nomeFuncionario" value="<c:out value="${funcionario.nome}"/>" /> <br /> 
                     Loja: <br/>
-                    <input type="text" disabled="true" name="loja" required oninvalid="this.setCustomValidity('Insira um telefone!')"
-                           oninput="this.setCustomValidity('')" placeholder="Loja" 
-                           value="<c:out value="${loja.nome}"/>" /> <br /> 
+                    <input type="text" disabled="true" name="loja" value="<c:out value="${loja.nome}"/>" /> <br /> 
 
                     Cliente: <br/> 
                     <select name="cliente">
@@ -39,7 +35,7 @@
                     </select> <br>
 
                     Produtos: <br/> 
-                    <select name="pdt">
+                    <select name="produto">
                         <%
                             ArrayList<Produto> produtos = (ArrayList<Produto>) request.getAttribute("produtos");
                             for (Produto produto : produtos) {
@@ -50,10 +46,6 @@
                         %>
                     </select> <br>
 
-
-                    <span style="color: red">${cadastroErro}</span>
-                    <span style="color: greenyellow">${cadastroOk}</span>
-                    <span style="color: greenyellow">${atualizacaoOk}</span>
                     <input type="submit" value="Cadastrar">            
                 </form>
             </div>

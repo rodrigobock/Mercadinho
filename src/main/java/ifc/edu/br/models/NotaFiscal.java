@@ -76,4 +76,14 @@ public class NotaFiscal {
         this.cliente = cliente;
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
+    
+
 }

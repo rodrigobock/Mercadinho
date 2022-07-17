@@ -47,6 +47,13 @@ public class ProdutoDAO {
         return produtos;
     }
 
+    public Produto consultarProduto(Long id) {
+        Query q = em.createQuery("from Produto where id = :id");
+        q.setParameter("id", id);
+        Produto produto = (Produto) q.getSingleResult();
+        return produto;
+    }
+
     public UnidadeMedida consultarUM(Long id) {
         Query q = em.createQuery("from UnidadeMedida where id = :id");
         q.setParameter("id", id);

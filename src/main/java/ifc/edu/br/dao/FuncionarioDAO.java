@@ -99,23 +99,11 @@ public class FuncionarioDAO {
 
     }
 
-    public Funcionario buscaFuncionario(Long id) {
-        EntityTransaction tx = em.getTransaction();
-        if (!tx.isActive()) {
-            tx.begin();
-        }
-        try {
-
-            Query q = em.createQuery("from Pessoa where id = :id and tipoCadastro = 'FUNCIONARIO'");
-            q.setParameter("id", id);
-            Funcionario funcionario = (Funcionario) q.getSingleResult();
-            tx.commit();
-            return funcionario;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        tx.commit();
-        return null;
+    public Funcionario consultarFuncionario(Long id) {
+        Query q = em.createQuery("from Pessoa where id = :id");
+        q.setParameter("id", id);
+        Funcionario funcionario = (Funcionario) q.getSingleResult();
+        return funcionario;
     }
 
     public Funcionario buscaFuncionarioByLogin(String login) {

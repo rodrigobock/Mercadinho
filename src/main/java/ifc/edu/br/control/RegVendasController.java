@@ -8,9 +8,11 @@ import ifc.edu.br.dao.ClienteDAO;
 import ifc.edu.br.dao.FuncionarioDAO;
 import ifc.edu.br.dao.LojaDAO;
 import ifc.edu.br.dao.ProdutoDAO;
+import ifc.edu.br.dao.VendaDAO;
 import ifc.edu.br.models.Cliente;
 import ifc.edu.br.models.Funcionario;
 import ifc.edu.br.models.Loja;
+import ifc.edu.br.models.NotaFiscal;
 import ifc.edu.br.models.Produto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -19,26 +21,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "RegVendas", urlPatterns = {"/RegVendas"})
 public class RegVendasController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private static String INSERT_OR_EDIT = "/registrarVendas.jsp";
-
     FuncionarioDAO fdao = new FuncionarioDAO();
     LojaDAO ldao = new LojaDAO();
     ProdutoDAO pdao = new ProdutoDAO();
     ClienteDAO cdao = new ClienteDAO();
+    VendaDAO vdao = new VendaDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            getServletContext().getRequestDispatcher("/registrarVendas.jsp").forward(request, response);
-        }
     }
 
     @Override
@@ -54,7 +50,7 @@ public class RegVendasController extends HttpServlet {
             List<Produto> produtos = pdao.consultarProdutos();
 
             if (action.equalsIgnoreCase("inserirVenda")) {
-                forward = INSERT_OR_EDIT;
+                forward = "/registrarVendas.jsp";
                 request.setAttribute("funcionario", funcionario);
                 request.setAttribute("loja", loja);
                 request.setAttribute("cliente", clientes);
@@ -73,6 +69,34 @@ public class RegVendasController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+        NotaFiscal nf = new NotaFiscal();
+        Produto p = pdao.consultarProduto(validaLong(request.getParameter("produto")));
+        Funcionario f = fdao.buscaFuncionarioByLogin(request.getParameter("nomeFuncionario"));
+        Cliente cliente = cdao.consultarCliente(validaLong(request.getParameter("cliente")));
+
+        nf.setCliente(cliente);
+        nf.setFuncionario(f);
+        nf.setProduto(p);
+        nf.setValorTotal(p.getValor());
+
+        vdao.CriarNotaFiscal(nf);
+        cdao.adicionaCompra(cliente.getId());
+
+        request.setAttribute("msg", "Cadastro de NF realizado com sucesso!");
+        getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+
+    }
+
+    private Long validaLong(String s) {
+        try {
+            return Long.parseLong(s);
+        } catch (Exception e) {
+            return 0L;
+        }
     }
 
     @Override

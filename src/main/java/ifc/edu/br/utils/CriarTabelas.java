@@ -52,7 +52,6 @@ public class CriarTabelas {
         ProdutoDAO pdao = new ProdutoDAO();
 
         Funcionario f = new Funcionario();
-        FuncionarioDAO fdao = new FuncionarioDAO();
 
         Cliente c = new Cliente();
         ClienteDAO cdao = new ClienteDAO();
@@ -62,14 +61,15 @@ public class CriarTabelas {
         l.setCnpj("1234567890");
         ldao.CriarLoja(l);
 
-        f.setNome("Admin");
+        f.setNome(login);
         f.setCpf("000000000000");
         f.setTelefone("70707070");
         f.setCargo(login.toUpperCase());
+        f.setTipoCadastro(login.toUpperCase());
         f.setLogin(login);
         f.setSenha(PasswordHash.hashPassword(login));
         f.setLoja(l);
-        fdao.CriarUsuario(f);
+        em.persist(f);
 
         cdao.CriarUsuario("Cliente", "000000000000", "70707070");
         
@@ -77,4 +77,7 @@ public class CriarTabelas {
 
     }
 
+    public static String getLogin() {
+        return login;
+    }
 }

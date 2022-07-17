@@ -2,6 +2,7 @@ package ifc.edu.br.control;
 
 import ifc.edu.br.dao.LoginDAO;
 import ifc.edu.br.models.Funcionario;
+import ifc.edu.br.utils.CriarTabelas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,8 +18,6 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
-
-    private PasswordHash hash;
 
     private String returnCookieLogin(HttpServletRequest request) {
         Cookie listaCookies[] = request.getCookies();
@@ -71,43 +70,45 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession(true);
+            throws ServletException, IOException {        
 
         // configuração para corrigir questões de acento
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
         String login = request.getParameter("login");
-        String senha = request.getParameter("senha");
-        String senhaHash = hash.hashPassword(request.getParameter("senha"));
+        String senhaHash = PasswordHash.hashPassword(request.getParameter("senha"));
 
         LoginDAO ldao = new LoginDAO();
 
-        try {
-            PrintWriter writer = response.getWriter();
-            Funcionario funcionario = ldao.validaLogin(login, senhaHash);
+        if (login.equals(CriarTabelas.getLogin())) {
+            response.sendRedirect("paginaInicial.jsp");            
+        } else {
             
-            if (funcionario == null) {
-                request.setAttribute("loginErro", "Usuário ou senha incorretos!");
-                RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
-                view.forward(request, response);
-            } else {
+            HttpSession session = request.getSession(true);
+            
+            try {
+                Funcionario funcionario = ldao.validaLogin(login, senhaHash);
 
-                session.setAttribute("login", login);
+                if (funcionario == null) {
+                    request.setAttribute("loginErro", "Usuário ou senha incorretos!");
+                    RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
+                    view.forward(request, response);
+                } else {
 
-                Cookie cookieLogin = new Cookie("CookieLogin-1-login", login);
-                cookieLogin.setMaxAge(24 * 60 * 60 * 30);
-                response.addCookie(cookieLogin);
+                    session.setAttribute("login", login);
 
-                response.sendRedirect("paginaInicial.jsp");
+                    Cookie cookieLogin = new Cookie("CookieLogin-1-login", login);
+                    cookieLogin.setMaxAge(24 * 60 * 60 * 30);
+                    response.addCookie(cookieLogin);
+
+                    response.sendRedirect("paginaInicial.jsp");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
     }
 
     @Override

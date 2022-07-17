@@ -1,4 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"
+         import="java.util.*"
+         import="ifc.edu.br.models.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -67,13 +72,15 @@
         </div>
         <form action="CadProdutos" method="get">
             <br> <button type="submit" name="CadProdutos">Cadastrar Produtos</button>
-            <br> <button type="submit" name="RegVendas">Registrar Venda</button>
         </form>
         <form action="LojaController" method="GET" >
             <input type="submit" value="Cadastro de Loja">
         </form>
-    </body>
-    <footer>
-        Rodrigo Bock e Nicolas Escobar. TADS 2022™
-    </footer>
+        <form>
+            <a href="RegVendas?action=inserirVenda&userLogin=<c:out value="${login}"/>">Cadastrar venda</a>
+        </form>
+</body>
+<footer>
+    Rodrigo Bock e Nicolas Escobar. TADS 2022™
+</footer>
 </html>

@@ -17,10 +17,9 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
-    
+
     private PasswordHash hash;
-    final private String LOGIN = "admin";
-    
+
     private String returnCookieLogin(HttpServletRequest request) {
         Cookie listaCookies[] = request.getCookies();
         if (listaCookies != null) {
@@ -44,28 +43,28 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // configuração para corrigir questões de acento
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
+
         HttpSession session = request.getSession(true);
-        
+
         String loginCookie = returnCookieLogin(request);
-        if (loginCookie != null){
+        if (loginCookie != null) {
             session.setAttribute("login", loginCookie);
             response.sendRedirect("paginaInicial.jsp");
-        }else{
+        } else {
             session.removeAttribute("login");
 
             Cookie ckLogin = new Cookie("CookieLogin-1-login", "");
             ckLogin.setMaxAge(0);
             response.addCookie(ckLogin);
-            
+
             RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
             view.forward(request, response);
-            
-        }                    
+
+        }
         //processRequest(request, response);
 
     }
@@ -73,7 +72,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(true);
 
         // configuração para corrigir questões de acento
@@ -89,20 +88,19 @@ public class LoginController extends HttpServlet {
         try {
             PrintWriter writer = response.getWriter();
             Funcionario funcionario = ldao.validaLogin(login, senhaHash);
-            if (login.equals(LOGIN) && senha.equals(LOGIN)) {
-                response.sendRedirect("paginaInicial.jsp");                
-            }else if (funcionario == null) {
+            
+            if (funcionario == null) {
                 request.setAttribute("loginErro", "Usuário ou senha incorretos!");
                 RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
                 view.forward(request, response);
             } else {
-                
+
                 session.setAttribute("login", login);
-                
+
                 Cookie cookieLogin = new Cookie("CookieLogin-1-login", login);
                 cookieLogin.setMaxAge(24 * 60 * 60 * 30);
                 response.addCookie(cookieLogin);
-                
+
                 response.sendRedirect("paginaInicial.jsp");
             }
 

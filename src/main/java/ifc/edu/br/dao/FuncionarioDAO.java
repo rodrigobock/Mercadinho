@@ -31,16 +31,13 @@ public class FuncionarioDAO {
         if (!tx.isActive()) {
             tx.begin();
         }
-        try {
-            f.setTipoCadastro("FUNCIONARIO");
-            em.persist(f);
-            tx.commit();
 
-            return true;
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return false;
+        f.setTipoCadastro("FUNCIONARIO");
+        em.persist(f);
+        tx.commit();
+
+        return true;
+
     }
 
     public boolean ValidaLogin(String login) throws SQLException {
@@ -58,7 +55,7 @@ public class FuncionarioDAO {
 
             if (results.isEmpty() || results.size() == 0) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
 
@@ -111,6 +108,25 @@ public class FuncionarioDAO {
 
             Query q = em.createQuery("from Pessoa where id = :id and tipoCadastro = 'FUNCIONARIO'");
             q.setParameter("id", id);
+            Funcionario funcionario = (Funcionario) q.getSingleResult();
+            tx.commit();
+            return funcionario;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tx.commit();
+        return null;
+    }
+
+    public Funcionario buscaFuncionarioByLogin(String login) {
+        EntityTransaction tx = em.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();
+        }
+        try {
+
+            Query q = em.createQuery("from Pessoa where login = :login and tipoCadastro = 'FUNCIONARIO'");
+            q.setParameter("login", login);
             Funcionario funcionario = (Funcionario) q.getSingleResult();
             tx.commit();
             return funcionario;

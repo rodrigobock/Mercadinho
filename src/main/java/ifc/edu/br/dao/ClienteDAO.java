@@ -71,17 +71,17 @@ public class ClienteDAO {
     }
     // BUSCAR TODOS
     public List<Cliente> TodosClientes() {
-        // conexão
-        EntityTransaction tx = em.getTransaction();
-        if (!tx.isActive()) {
-            tx.begin();     
-        } 
 
         try {
-            Query q = em.createQuery("from pessoa where tipoCadastro = 'CLIENTE'");
+            Query q = em.createQuery("from Pessoa where tipoCadastro = 'CLIENTE'");
             List<Cliente> clientes = q.getResultList();
 
-            return clientes;
+            if(clientes.isEmpty() || clientes.size() == 0){
+                return null;
+            }else{
+                return clientes;
+            }
+
 
         } catch (Exception e) {
             e.getMessage();

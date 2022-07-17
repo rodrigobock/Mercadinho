@@ -28,8 +28,8 @@ public class ProdutoDAO {
         EntityTransaction tx = em.getTransaction();
 
         if (!tx.isActive()) {
-            tx.begin();     
-        } 
+            tx.begin();
+        }
         em.persist(p);
         tx.commit();
     }
@@ -37,6 +37,13 @@ public class ProdutoDAO {
     // BUSCAR TODOS
     public List consultarProdutos() {
         List produtos = em.createQuery("from Produto", Produto.class).getResultList();
+        return produtos;
+    }
+
+    public List<Produto> buscaProdutos(String nomeProduto) {
+        Query q = em.createQuery("from Produto where nome like '%:name%'");
+        q.setParameter("name", nomeProduto);
+        List<Produto> produtos = q.getResultList();
         return produtos;
     }
 
@@ -51,5 +58,5 @@ public class ProdutoDAO {
         List unidadeMedidas = em.createQuery("from UnidadeMedida", UnidadeMedida.class).getResultList();
         return unidadeMedidas;
     }
-    
+
 }

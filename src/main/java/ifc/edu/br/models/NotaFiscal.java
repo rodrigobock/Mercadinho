@@ -16,20 +16,24 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "notaFiscal")
 public class NotaFiscal {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nf_seq")
     @SequenceGenerator(name = "nf_seq", initialValue = 1)
     private Long id;
     private Double valorTotal;
-    
+
     @ManyToOne
     @JoinColumn(name = "idFuncionario")
     private Funcionario funcionario;
-    
+
     @ManyToOne
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "idProduto")
+    private Produto produto;
 
     public NotaFiscal() {
     }
@@ -71,5 +75,5 @@ public class NotaFiscal {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-  
+
 }

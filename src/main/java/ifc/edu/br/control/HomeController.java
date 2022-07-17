@@ -87,18 +87,19 @@ public class HomeController extends HttpServlet{
         response.setContentType("text/html;charset=UTF-8");
 
         String btn = request.getParameter("btn");
-        
-        
-        
+                        
         switch (btn) {
             case "cadFunc":
-                
+                response.sendRedirect(request.getContextPath() 
+                        + "/FuncionarioController?action=cadastrarFuncionario");
+                break;
             case "cadProd":
                 request.setAttribute("ums", pdao.todosUM());
                 view = request.getRequestDispatcher("/cadProdutos.jsp");
                 view.forward(request, response);
             case "cadLoja":
-                
+                view = request.getRequestDispatcher("/cadastrarLoja.jsp");
+                view.forward(request, response);                
             case "registraVenda":
                 
             case "listaFunc":
@@ -124,7 +125,7 @@ public class HomeController extends HttpServlet{
                 response.sendRedirect("login.jsp");
                 break;
             default:
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login.jsp");                
         }       
     }
 

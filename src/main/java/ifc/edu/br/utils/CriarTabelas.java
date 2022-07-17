@@ -15,6 +15,8 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 public class CriarTabelas {
+    
+    private static final String login = "admin";
 
     public static void main(String[] args) throws Exception {
 
@@ -63,9 +65,9 @@ public class CriarTabelas {
         f.setNome("Admin");
         f.setCpf("000000000000");
         f.setTelefone("70707070");
-        f.setCargo("Admin");
-        f.setLogin("admin");
-        f.setSenha("B86FA73117669C68D752EC0FF0BDFF149D8B559E07CD0983CE9BDB3A0F80BBD0");
+        f.setCargo(login.toUpperCase());
+        f.setLogin(login);
+        f.setSenha(PasswordHash.hashPassword(login));
         f.setLoja(l);
         fdao.CriarUsuario(f);
 

@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <h1>Funcionários</h1>
+        <a href="paginaInicial.jsp">Voltar</a>
         <table border=1>
             <thead>
                 <tr>

@@ -38,7 +38,7 @@
                         </button>                        
                     </li>
                     <li>
-                        <button name="btn" value="registraVenda">
+                        <button name="btn" value="registraVenda&<c:out value="${login}"/>">
                             <i class='bx bx-cart' ></i>
                             <span class="linkname">Registrar Venda</span>
                         </button>
@@ -56,12 +56,6 @@
                         </button>
                     </li>
                     <li>                        
-                        <button name="btn" value="listaLojas">
-                            <i class='bx bx-buildings' ></i>
-                            <span class="linkname">Listar Lojas</span>
-                        </button>
-                    </li>
-                    <li>                        
                         <button name="btn" value="Logout">
                             <i class='bx bx-log-out' ></i>
                             <span class="linkname">Log out</span>
@@ -69,16 +63,7 @@
                     </li>
                 </ul>
             </form>
-        </div>
-        <form action="CadProdutos" method="get">
-            <br> <button type="submit" name="CadProdutos">Cadastrar Produtos</button>
-        </form>
-        <form action="LojaController" method="GET" >
-            <input type="submit" value="Cadastro de Loja">
-        </form>
-        <form>
-            <a href="RegVendas?action=inserirVenda&userLogin=<c:out value="${login}"/>">Cadastrar venda</a>
-        </form>
+        </div>                            
 </body>
 <footer>
     Rodrigo Bock e Nicolas Escobar. TADS 2022™

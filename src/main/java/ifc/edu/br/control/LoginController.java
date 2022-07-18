@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
         LoginDAO ldao = new LoginDAO();
 
         if (login.equals(CriarTabelas.getLogin())) {
-            response.sendRedirect("paginaInicial.jsp");            
+            response.sendRedirect("paginaInicial.jsp");
         } else {
             
             HttpSession session = request.getSession(true);

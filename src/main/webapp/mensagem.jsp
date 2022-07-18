@@ -19,4 +19,5 @@
         <a href="paginaInicial.jsp">Retornar ao início</a>
 
     </body>
+    <jsp:include page="footer.jsp"/>
 </html>

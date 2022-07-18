@@ -7,11 +7,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/tables.css">
     </head>
     <body>
-        <h1>Produtos</h1>
         <a href="paginaInicial.jsp">Voltar</a>
-        <table border=1>
+        <h1>Produtos</h1>
+        <table class="content-table" >
             <thead>
                 <tr>
                     <th style="display: none">Id</th>
@@ -36,4 +37,5 @@
         <a href="ProdutoController?pg=<c:out value="${prev}"/>">${ant}</a>
         <a href="ProdutoController?pg=<c:out value="${next}"/>">${prox}</a>        
     </body>
+    <jsp:include page="footer.jsp"/>
 </html>

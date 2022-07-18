@@ -26,9 +26,6 @@ public class LojaController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            getServletContext().getRequestDispatcher("/cadastrarLoja.jsp").forward(request, response);
-        }
     }
 
     @Override
@@ -53,11 +50,14 @@ public class LojaController extends HttpServlet {
 
         ldao.CriarLoja(l);
 
-        if (!response.isCommitted()) {
-            request.setAttribute("msg", "Cadastro da loja realizado com sucesso!");
-            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
-        }
-        return;
+        if (!response.isCommitted())
+            request.setAttribute("cadastroOk", "Cadastro da loja realizado com sucesso!");
+        else
+            request.setAttribute("cadastroErro", "Não foi possível cadastrar a loja!");            
+            
+        getServletContext().getRequestDispatcher("/cadastrarLoja.jsp").forward(request, response);
+            
+        // return;
 
     }
 

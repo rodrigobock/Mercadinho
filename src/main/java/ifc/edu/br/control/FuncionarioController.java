@@ -96,7 +96,7 @@ public class FuncionarioController extends HttpServlet {
                     request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
                 } else {
                     fdao.CriarUsuario(func);
-                    request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso!");                    
+                    request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso!");
                 }
                 request.setAttribute("lojas", ldao.consultarLojas());
                 getServletContext().getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);

@@ -26,6 +26,7 @@
                 %>
             </select> <br>
             <input type="hidden" name="parent" value="produto">
+            <span style="color: greenyellow">${cadastroOk}</span> <br>
             <input type="submit" value="Cadastrar">
         </form>
         <a href="paginaInicial.jsp">Retornar ao início</a>

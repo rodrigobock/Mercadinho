@@ -18,6 +18,8 @@
                            oninput="this.setCustomValidity('')" placeholder="CEP"> <br>
                     <input type="text" name="cnpj" required oninvalid="this.setCustomValidity('Insira um CNPJ!')"
                            oninput="this.setCustomValidity('')" placeholder="CNPJ"> <br>
+                    <span style="color: red">${cadastroErro}</span>
+                    <span style="color: greenyellow">${cadastroOk}</span> <br>
                     <input type="submit" value="Cadastrar">
                 </form>
             </div>

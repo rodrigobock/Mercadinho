@@ -51,8 +51,9 @@ public class CadProdutosController extends HttpServlet {
             p.setPeso(validaFloat(request.getParameter("peso")));
             p.setUnidadeMedida(pdao.consultarUM(validaLong(request.getParameter("ums"))));
             pdao.CriarProduto(p);
-            request.setAttribute("msg", "Cadastro de produtos realizado com sucesso!");
-            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+            request.setAttribute("cadastroOk", "Produto cadastrado com sucesso!");
+            request.setAttribute("ums", pdao.todosUM());
+            getServletContext().getRequestDispatcher("/cadProdutos.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "Cadastro de produtos falhou!");
             getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);

@@ -111,7 +111,8 @@ public class HomeController extends HttpServlet{
             case "listaProd":
                 
             case "listaLojas":
-            
+                view = request.getRequestDispatcher("/LojaController");
+                view.forward(request, response);
             case "Logout":
                 session.removeAttribute("login");
             

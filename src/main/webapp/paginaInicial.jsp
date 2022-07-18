@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"
          import="java.util.*"
-         import="ifc.edu.br.models.*" %>
+         import="ifc.edu.br.models.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -24,7 +24,8 @@
                             <i class='bx bxs-face' ></i>
                             <span class="linkname">Cadastrar Funcionário</span>
                         </button>                        
-                    </li>
+                    </li>                        
+                    <% }%>
                     <li>                        
                         <button name="btn" value="cadProd">
                             <i class='bx bx-package'></i>
@@ -65,7 +66,5 @@
             </form>
         </div>                            
 </body>
-<footer>
-    Rodrigo Bock e Nicolas Escobar. TADS 2022™
-</footer>
+<jsp:include page="footer.jsp"/>
 </html>

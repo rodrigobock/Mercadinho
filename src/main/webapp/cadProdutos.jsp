@@ -13,10 +13,14 @@
         <a href="login">Voltar</a>
         <h1>Cadastro de Produtos</h1>
         <form action="CadProdutos" method="post" class="login-form">
-            Nome do produto: <input type="text" name="descricao" value=""> <br>
-            Cod. barras: <input type="text" name="gtin" value=""> <br>
-            Valor <input type="text" name="valor" value=""> <br>
-            Peso: <input type="text" name="peso" value=""> <br>
+            <input type="text" name="descricao" required oninvalid="this.setCustomValidity('Insira um Produto!')"
+                oninput="this.setCustomValidity('')" placeholder="Produto"> <br>
+            <input type="text" name="gtin" required oninvalid="this.setCustomValidity('Insira um Código!')"
+                oninput="this.setCustomValidity('')" placeholder="Cod. Barras"> <br>
+            <input type="text" name="valor" required oninvalid="this.setCustomValidity('Insira um Valor!')"
+                   oninput="this.setCustomValidity('')" placeholder="Valor"> <br>
+            <input type="text" name="peso" required oninvalid="this.setCustomValidity('Insira um nome!')"
+                   oninput="this.setCustomValidity('')" placeholder="Peso"> <br>
             Unidade de medida: 
             <select name="ums">
                 <%

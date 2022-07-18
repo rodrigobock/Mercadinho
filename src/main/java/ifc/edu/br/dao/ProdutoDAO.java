@@ -46,6 +46,14 @@ public class ProdutoDAO {
         List<Produto> produtos = q.getResultList();
         return produtos;
     }
+    
+    public List<Produto> filtraProduto(int inicio, int fim){
+        Query q = em.createQuery("from Produto", Produto.class);
+        q.setFirstResult(inicio);
+        q.setMaxResults(fim);
+        List<Produto> produtos = q.getResultList();
+        return produtos;
+    }
 
     public Produto consultarProduto(Long id) {
         Query q = em.createQuery("from Produto where id = :id");

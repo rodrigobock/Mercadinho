@@ -1,9 +1,7 @@
 package ifc.edu.br.control;
 
 import ifc.edu.br.dao.FuncionarioDAO;
-import ifc.edu.br.dao.LoginDAO;
 import ifc.edu.br.dao.ProdutoDAO;
-import ifc.edu.br.models.Funcionario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -82,7 +80,7 @@ public class HomeController extends HttpServlet{
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        String btn = request.getParameter("btn");
+        String btn = request.getParameter("btn").split("&")[0];
                         
         switch (btn) {
             case "cadFunc":
@@ -93,12 +91,16 @@ public class HomeController extends HttpServlet{
                 request.setAttribute("ums", pdao.todosUM());
                 view = request.getRequestDispatcher("/cadProdutos.jsp");
                 view.forward(request, response);
+                break;
             case "cadLoja":
                 view = request.getRequestDispatcher("/cadastrarLoja.jsp");
                 view.forward(request, response);                
-            case "registraVenda":
-                view = request.getRequestDispatcher("/registrarVendas.jsp");
-                view.forward(request, response);
+                break;
+            case "registraVenda":         
+                String func = request.getParameter("btn").split("&")[1];
+                response.sendRedirect(request.getContextPath() 
+                        + "/RegVendas?action=inserirVenda&userLogin=" + func);                                
+                break;
             case "listaFunc":
                 try {
                     request.setAttribute("users", fdao.todosFuncionarios());
@@ -107,12 +109,11 @@ public class HomeController extends HttpServlet{
                 }
                 view = request.getRequestDispatcher("/listarFuncionarios.jsp");
                 view.forward(request, response);
-
+                break;
             case "listaProd":
-                
-            case "listaLojas":
-                view = request.getRequestDispatcher("/LojaController");
-                view.forward(request, response);
+                response.sendRedirect(request.getContextPath() 
+                        + "/ProdutoController");
+                break;
             case "Logout":
                 session.removeAttribute("login");
             

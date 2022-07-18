@@ -10,7 +10,7 @@
         <div class="login-page">
             <div class="form">
                 <a href="paginaInicial.jsp">Voltar</a>
-                <h1 class="title">Cadastro de lojas</h1>
+                <h1>Cadastro de Lojas</h1>
                 <form action="LojaController" method="post" class="login-form">
                     <input type="text" name="nome" required oninvalid="this.setCustomValidity('Insira um nome!')"
                            oninput="this.setCustomValidity('')" placeholder="Nome"> <br>

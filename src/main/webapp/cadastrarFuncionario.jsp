@@ -14,8 +14,8 @@
     <body>        
         <div class="login-page">
             <div class="form">
-                <a href="paginaInicial.jsp">Voltar</a>
-                <h1 class="title">Cadastro de funcionário</h1>
+                <a href="login">Voltar</a>
+                <h1>Cadastro de funcionário</h1>
                 <form method="POST" action='FuncionarioController' name="frmAddUser">
                     <input type="hidden" name="id" value="<c:out value="${funcionario.id}"/>" /> <br />
                     <input type="text" name="nome" required oninvalid="this.setCustomValidity('Insira um nome!')"

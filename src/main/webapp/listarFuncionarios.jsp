@@ -8,13 +8,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/tables.css">
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Funcionários</h1>
         <a href="paginaInicial.jsp">Voltar</a>
-        <table border=1>
+        <h1>Funcionários</h1>
+        <table class="content-table">
             <thead>
                 <tr>
                     <th style="display: none">Id</th>
@@ -41,5 +41,5 @@
         </table>
         <p><a href="FuncionarioController?action=insert">Add User</a></p>
     </body>
-
+    <jsp:include page="footer.jsp"/>
 </html>

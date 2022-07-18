@@ -16,7 +16,7 @@
             <div class="form">
                 <a href="login">Voltar</a>
                 <h1 class="title">Cadastro de venda</h1>
-                <form method="POST" action='RegVendas'>
+                <form method="POST" action='RegVendas' class="login-form">
                     Funcionário <br/>
                     <input type="text" name="nomeFuncionario" value="<c:out value="${funcionario.nome}"/>" /> <br /> 
                     Loja: <br/>

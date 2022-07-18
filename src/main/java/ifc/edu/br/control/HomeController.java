@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
 public class HomeController extends HttpServlet{
@@ -65,9 +63,7 @@ public class HomeController extends HttpServlet{
             RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
             view.forward(request, response);
             
-        }                    
-        //processRequest(request, response);
-
+        }
     }
 
     @Override
@@ -101,7 +97,8 @@ public class HomeController extends HttpServlet{
                 view = request.getRequestDispatcher("/cadastrarLoja.jsp");
                 view.forward(request, response);                
             case "registraVenda":
-                
+                view = request.getRequestDispatcher("/registrarVendas.jsp");
+                view.forward(request, response);
             case "listaFunc":
                 try {
                     request.setAttribute("users", fdao.todosFuncionarios());
@@ -123,6 +120,7 @@ public class HomeController extends HttpServlet{
                 response.addCookie(ckLogin);
 
                 response.sendRedirect("login.jsp");
+                
                 break;
             default:
                 response.sendRedirect("login.jsp");                

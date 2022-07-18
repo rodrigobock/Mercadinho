@@ -15,17 +15,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import ifc.edu.br.utils.PasswordHash;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "FuncionarioController", urlPatterns = {"/FuncionarioController"})
 public class FuncionarioController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static String INSERT_OR_EDIT = "/cadastrarFuncionario.jsp";
+    private static String INSERT_OR_EDIT = "/cadastrarFuncionario.jsp";   
     private static String LIST_USER = "/listarFuncionarios.jsp";
-    private static String InitialPage = "/paginaInical.jsp";
     private FuncionarioDAO fdao;
     private LojaDAO ldao;
-    private PasswordHash hash;
 
     public FuncionarioController() {
         super();
@@ -53,6 +54,7 @@ public class FuncionarioController extends HttpServlet {
                 String id = request.getParameter("userId");
                 Funcionario funcionario = fdao.consultarFuncionario(Long.parseLong(id));
                 request.setAttribute("funcionario", funcionario);
+                request.setAttribute("lojas", ldao.consultarLojas());
             } else if (action.equalsIgnoreCase("listarFuncionarios")) {
                 forward = LIST_USER;
                 request.setAttribute("users", fdao.todosFuncionarios());
@@ -82,7 +84,7 @@ public class FuncionarioController extends HttpServlet {
         func.setCpf(request.getParameter("cpf"));
         func.setCargo(request.getParameter("cargo"));
         func.setLogin(request.getParameter("login"));
-        func.setSenha(hash.hashPassword(request.getParameter("senha")));
+        func.setSenha(PasswordHash.hashPassword(request.getParameter("senha")));
         func.setLoja(ldao.consultarLoja(validaLong(request.getParameter("loja"))));
 
         String id = request.getParameter("id");
@@ -92,15 +94,12 @@ public class FuncionarioController extends HttpServlet {
 
                 if (fdao.ValidaLogin(func.getLogin())) {
                     request.setAttribute("cadastroErro", "Funcionário já existe no sistema!");
-                    RequestDispatcher view = request.getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario");
-                    view.forward(request, response);
                 } else {
                     fdao.CriarUsuario(func);
-
-                    RequestDispatcher view = request.getRequestDispatcher("/cadastrarFuncionario.jsp?action=cadastrarFuncionario");
-                    request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso");
-                    view.forward(request, response);
+                    request.setAttribute("cadastroOk", "Funcionário cadastrado com sucesso!");                    
                 }
+                request.setAttribute("lojas", ldao.consultarLojas());
+                getServletContext().getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);
 
             } else if (id != null || !id.isEmpty()) {
                 func.setId(Long.parseLong(request.getParameter("id")));
@@ -114,9 +113,16 @@ public class FuncionarioController extends HttpServlet {
                 request.setAttribute("msg", "Erro ao cadastrar!");
                 getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
             }
-        } catch (Exception e) {
-            request.setAttribute("msg", "Ocorreu algum erro no cadastro");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + " " + e.getCause());
+            request.setAttribute("msg", "Ocorreu algum erro no SQL");
             getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+        } catch (ServletException ex) {
+            System.out.println(ex.getMessage() + " " + ex.getCause());
+            request.setAttribute("msg", "Página não encontrada");
+            getServletContext().getRequestDispatcher("/mensagem.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(FuncionarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

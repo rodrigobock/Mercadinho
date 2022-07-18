@@ -14,7 +14,7 @@
     <body>        
         <div class="login-page">
             <div class="form">
-                <a href="login">Voltar</a>
+                <a href="paginaInicial.jsp">Voltar</a>
                 <h1 class="title">Cadastro de funcionário</h1>
                 <form method="POST" action='FuncionarioController' name="frmAddUser">
                     <input type="hidden" name="id" value="<c:out value="${funcionario.id}"/>" /> <br />

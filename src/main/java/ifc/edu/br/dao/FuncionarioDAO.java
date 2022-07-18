@@ -138,7 +138,6 @@ public class FuncionarioDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tx.commit();
     }
 
     public void updateUser(Funcionario func) {

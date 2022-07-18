@@ -15,7 +15,7 @@
         <table border=1>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th style="display: none">Id</th>
                     <th>Nome</th>
                     <th>Telefone</th>
                     <th>CPF</th>
@@ -26,7 +26,7 @@
             <tbody>
                 <c:forEach items="${users}" var="user">
                     <tr>
-                        <td><c:out value="${user.id}" /></td>
+                        <td style="display:none"><c:out value="${user.id}" /></td>
                         <td><c:out value="${user.nome}" /></td>
                         <td><c:out value="${user.telefone}" /></td>
                         <td><c:out value="${user.cpf}" /></td>

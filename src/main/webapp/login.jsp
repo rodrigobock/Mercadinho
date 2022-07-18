@@ -17,8 +17,6 @@
                     <span style="color: red">${loginErro}</span>
                     <input type="submit" value="Login">
 
-                    <p class="message">Funcionario novo? <a href="FuncionarioController?action=cadastrarFuncionario">Create an account</a></p>
-                    <br>
                     <p class="message">Cliente novo? <a href="ClienteControl">Create an account</a></p>
                 </form>
             </div>

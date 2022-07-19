@@ -25,7 +25,6 @@
                             <span class="linkname">Cadastrar Funcionário</span>
                         </button>                        
                     </li>                        
-                    <% }%>
                     <li>                        
                         <button name="btn" value="cadProd">
                             <i class='bx bx-package'></i>

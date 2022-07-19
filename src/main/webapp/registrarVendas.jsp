@@ -18,7 +18,7 @@
                 <h1 class="title">Cadastro de venda</h1>
                 <form method="POST" action='RegVendas' class="login-form">
                     Funcionário <br/>
-                    <input type="text" readonly="true" name="nomeFuncionario" value="<c:out value="${funcionario.nome}"/>" /> <br /> 
+                    <input type="text" name="nomeFuncionario" value="<c:out value="${funcionario.nome}"/>" /> <br /> 
                     Loja: <br/>
                     <input type="text" readonly="true" name="loja" value="<c:out value="${loja.nome}"/>" /> <br /> 
 

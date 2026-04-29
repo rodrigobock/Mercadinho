@@ -8,7 +8,7 @@
     "variable": [
         {
             "key": "baseUrl",
-            "value": "http://localhost:8080/Mercadinho-1",
+            "value": "http://localhost:8080",
             "type": "string",
             "description": "URL base da aplicação. Altere conforme o ambiente."
         }

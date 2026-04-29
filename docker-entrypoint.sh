@@ -2,7 +2,7 @@
 set -e
 
 STAGING=/tmp/war-staging
-WAR_SRC=/tmp/Mercadinho-1.war
+WAR_SRC=/opt/payara/Mercadinho-1.war
 WAR_OUT=${DEPLOY_DIR}/Mercadinho-1.war
 
 echo "[entrypoint] Aplicando configurações de banco..."

@@ -15,8 +15,9 @@ FROM payara/micro:6.2023.5
 USER root
 RUN apk add --no-cache zip
 
-# WAR vai para staging; será patchado com as env vars em runtime
-COPY --from=builder /app/target/Mercadinho-1.war /tmp/Mercadinho-1.war
+# WAR em path estável fora do VOLUME /opt/payara/deployments
+COPY --from=builder /app/target/Mercadinho-1.war /opt/payara/Mercadinho-1.war
+RUN chown payara:payara /opt/payara/Mercadinho-1.war
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 # Remove CRLF caso o arquivo venha do Windows, e torna executável
 RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh

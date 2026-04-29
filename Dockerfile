@@ -26,11 +26,10 @@ RUN sed -i \
 
 RUN mvn clean package -DskipTests
 
-# Stage 2: Runtime — Payara Server Full 6 (Jakarta EE 9 compatível)
-FROM payara/server-full:6.2023.5
+# Stage 2: Runtime — Payara Micro 6 (leve, ~150MB RAM vs ~500MB do Full)
+FROM payara/micro:6.2023.5
 
-# Copia o WAR para a pasta de auto-deploy do Payara
+# Copia o WAR para a pasta de auto-deploy
 COPY --from=builder /app/target/Mercadinho-1.war $DEPLOY_DIR
 
-# 8080 = HTTP da aplicação | 4848 = Console admin do Payara
-EXPOSE 8080 4848
+EXPOSE 8080

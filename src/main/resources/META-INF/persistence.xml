@@ -5,9 +5,9 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/mercadinho"/>
-      <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-      <property name="jakarta.persistence.jdbc.password" value="postgres"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?currentSchema=bolsa&amp;socketTimeout=30&amp;connectTimeout=10&amp;tcpKeepAlive=true"/>
+      <property name="jakarta.persistence.jdbc.user" value="postgres.jdsgehsflfwzlatcrjpj"/>
+      <property name="jakarta.persistence.jdbc.password" value="YKDkuwPYMJFflBoi"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.default_schema" value="mercadinho"/>

@@ -18,7 +18,8 @@ RUN apk add --no-cache zip
 # WAR vai para staging; será patchado com as env vars em runtime
 COPY --from=builder /app/target/Mercadinho-1.war /tmp/Mercadinho-1.war
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+# Remove CRLF caso o arquivo venha do Windows, e torna executável
+RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
 USER payara
 EXPOSE 8080

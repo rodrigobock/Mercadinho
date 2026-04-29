@@ -1,0 +1,567 @@
+{
+    "info": {
+        "_postman_id": "mercadinho-collection-v1",
+        "name": "Mercadinho",
+        "description": "Collection completa do projeto Mercadinho (Jakarta EE 9 + Servlet + JSP + MySQL).\n\nContexto padrão: /Mercadinho-1\nLogin padrão: admin / admin\n\nAntes de usar:\n1. Certifique-se de que o banco de dados `mercadinho` existe e foi inicializado via CriarTabelas.java\n2. A aplicação deve estar rodando em http://localhost:8080/Mercadinho-1",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080/Mercadinho-1",
+            "type": "string",
+            "description": "URL base da aplicação. Altere conforme o ambiente."
+        }
+    ],
+    "item": [
+        {
+            "name": "Autenticação",
+            "item": [
+                {
+                    "name": "Exibir tela de login",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["login"]
+                        },
+                        "description": "Exibe a tela de login. Redireciona para paginaInicial.jsp se o cookie de sessão for válido."
+                    }
+                },
+                {
+                    "name": "Autenticar",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "login",
+                                    "value": "admin",
+                                    "description": "Login do funcionário",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "senha",
+                                    "value": "admin",
+                                    "description": "Senha do funcionário (será hashada internamente)",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["login"]
+                        },
+                        "description": "Autentica o usuário. Em caso de sucesso, cria sessão e redireciona para paginaInicial.jsp.\n\nCredencial padrão (admin): login=admin / senha=admin"
+                    }
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "btn",
+                                    "value": "Logout",
+                                    "description": "Ação de logout",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/HomeController",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["HomeController"]
+                        },
+                        "description": "Remove a sessão e o cookie de login, redirecionando para login.jsp."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Funcionários",
+            "item": [
+                {
+                    "name": "Listar funcionários",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/FuncionarioController?action=listarFuncionarios",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["FuncionarioController"],
+                            "query": [
+                                {
+                                    "key": "action",
+                                    "value": "listarFuncionarios"
+                                }
+                            ]
+                        },
+                        "description": "Retorna a view listarFuncionarios.jsp com todos os funcionários cadastrados."
+                    }
+                },
+                {
+                    "name": "Exibir formulário de cadastro",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/FuncionarioController?action=cadastrarFuncionario",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["FuncionarioController"],
+                            "query": [
+                                {
+                                    "key": "action",
+                                    "value": "cadastrarFuncionario"
+                                }
+                            ]
+                        },
+                        "description": "Exibe o formulário cadastrarFuncionario.jsp. Qualquer valor de action diferente de 'delete', 'edit' ou 'listarFuncionarios' cai aqui."
+                    }
+                },
+                {
+                    "name": "Exibir formulário de edição",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/FuncionarioController?action=edit&userId=1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["FuncionarioController"],
+                            "query": [
+                                {
+                                    "key": "action",
+                                    "value": "edit"
+                                },
+                                {
+                                    "key": "userId",
+                                    "value": "1",
+                                    "description": "ID do funcionário a editar"
+                                }
+                            ]
+                        },
+                        "description": "Exibe o formulário de edição preenchido com os dados do funcionário informado em userId."
+                    }
+                },
+                {
+                    "name": "Deletar funcionário",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/FuncionarioController?action=delete&userId=1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["FuncionarioController"],
+                            "query": [
+                                {
+                                    "key": "action",
+                                    "value": "delete"
+                                },
+                                {
+                                    "key": "userId",
+                                    "value": "1",
+                                    "description": "ID do funcionário a deletar"
+                                }
+                            ]
+                        },
+                        "description": "Deleta o funcionário com o ID especificado e redireciona para a listagem."
+                    }
+                },
+                {
+                    "name": "Cadastrar funcionário",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "nome",
+                                    "value": "João Silva",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "telefone",
+                                    "value": "48999990000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cpf",
+                                    "value": "12345678901",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cargo",
+                                    "value": "Caixa",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "login",
+                                    "value": "joaosilva",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "senha",
+                                    "value": "senha123",
+                                    "description": "Será hashada antes de ser persistida",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "loja",
+                                    "value": "1",
+                                    "description": "ID da loja à qual o funcionário pertence",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "Deixar vazio para criar novo. Informar ID para atualizar.",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/FuncionarioController",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["FuncionarioController"]
+                        },
+                        "description": "Cria um novo funcionário. Se o campo `id` for preenchido, atualiza o funcionário existente."
+                    }
+                },
+                {
+                    "name": "Atualizar funcionário",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "ID do funcionário a ser atualizado",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "nome",
+                                    "value": "João Silva Atualizado",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "telefone",
+                                    "value": "48999990001",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cpf",
+                                    "value": "12345678901",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cargo",
+                                    "value": "Gerente",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "login",
+                                    "value": "joaosilva",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "senha",
+                                    "value": "novaSenha123",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "loja",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/FuncionarioController",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["FuncionarioController"]
+                        },
+                        "description": "Atualiza um funcionário existente. O campo `id` deve ser preenchido."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Clientes",
+            "item": [
+                {
+                    "name": "Exibir formulário de cadastro",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/ClienteControl",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["ClienteControl"]
+                        },
+                        "description": "Exibe o formulário cadastrarCliente.jsp."
+                    }
+                },
+                {
+                    "name": "Cadastrar cliente",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "nome",
+                                    "value": "Maria Souza",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "telefone",
+                                    "value": "48988880000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cpf",
+                                    "value": "98765432100",
+                                    "description": "CPF único — tentativa de duplicata retorna mensagem de erro",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/ClienteControl",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["ClienteControl"]
+                        },
+                        "description": "Cadastra um novo cliente. O CPF deve ser único no sistema."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Loja",
+            "item": [
+                {
+                    "name": "Cadastrar loja",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "nome",
+                                    "value": "Mercadinho Central",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cep",
+                                    "value": "88000000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cnpj",
+                                    "value": "12345678000190",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/LojaController",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["LojaController"]
+                        },
+                        "description": "Cadastra uma nova loja. O GET do LojaController não retorna conteúdo relevante."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Produtos",
+            "item": [
+                {
+                    "name": "Listar produtos (página 1)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/ProdutoController",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["ProdutoController"]
+                        },
+                        "description": "Lista os primeiros 10 produtos. Exibe paginação quando há mais de 10 registros."
+                    }
+                },
+                {
+                    "name": "Listar produtos (página N)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/ProdutoController?pg=2",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["ProdutoController"],
+                            "query": [
+                                {
+                                    "key": "pg",
+                                    "value": "2",
+                                    "description": "Número da página. Cada página exibe 10 produtos."
+                                }
+                            ]
+                        },
+                        "description": "Lista produtos de uma página específica (10 itens por página)."
+                    }
+                },
+                {
+                    "name": "Exibir formulário de cadastro",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/CadProdutos?CadProdutos=true",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["CadProdutos"],
+                            "query": [
+                                {
+                                    "key": "CadProdutos",
+                                    "value": "true"
+                                }
+                            ]
+                        },
+                        "description": "Exibe o formulário cadProdutos.jsp com as unidades de medida disponíveis (Kg, L, Cx, Un)."
+                    }
+                },
+                {
+                    "name": "Cadastrar produto",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "parent",
+                                    "value": "produto",
+                                    "description": "Identificador de contexto — deve ser 'produto'",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "descricao",
+                                    "value": "Arroz Branco 5kg",
+                                    "description": "Nome/descrição do produto",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "gtin",
+                                    "value": "7891234567890",
+                                    "description": "Código de barras (GTIN/EAN)",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "valor",
+                                    "value": "25.90",
+                                    "description": "Preço de venda",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "peso",
+                                    "value": "5.0",
+                                    "description": "Peso do produto",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "ums",
+                                    "value": "1",
+                                    "description": "ID da unidade de medida (1=Kg, 2=L, 3=Cx, 4=Un — verifique no banco)",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/CadProdutos",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["CadProdutos"]
+                        },
+                        "description": "Cadastra um novo produto no sistema. O campo `parent` deve ter o valor 'produto'."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Vendas",
+            "item": [
+                {
+                    "name": "Exibir formulário de venda",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/RegVendas?action=inserirVenda&userLogin=admin",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["RegVendas"],
+                            "query": [
+                                {
+                                    "key": "action",
+                                    "value": "inserirVenda"
+                                },
+                                {
+                                    "key": "userLogin",
+                                    "value": "admin",
+                                    "description": "Login do funcionário que está realizando a venda"
+                                }
+                            ]
+                        },
+                        "description": "Exibe o formulário registrarVendas.jsp com listas de produtos e clientes disponíveis para a loja do funcionário."
+                    }
+                },
+                {
+                    "name": "Registrar venda (Nota Fiscal)",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "produto",
+                                    "value": "1",
+                                    "description": "ID do produto vendido",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "nomeFuncionario",
+                                    "value": "admin",
+                                    "description": "Login do funcionário responsável pela venda",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cliente",
+                                    "value": "1",
+                                    "description": "ID do cliente que realizou a compra",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/RegVendas",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["RegVendas"]
+                        },
+                        "description": "Registra uma Nota Fiscal vinculando produto, funcionário e cliente. O valor total é o preço atual do produto. Incrementa o contador de compras do cliente."
+                    }
+                }
+            ]
+        }
+    ]
+}

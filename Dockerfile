@@ -13,7 +13,7 @@ FROM payara/micro:6.2023.5
 
 # Instala zip para reempacotar o WAR no entrypoint
 USER root
-RUN apt-get update && apt-get install -y --no-install-recommends zip && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache zip
 
 # WAR vai para staging; será patchado com as env vars em runtime
 COPY --from=builder /app/target/Mercadinho-1.war /tmp/Mercadinho-1.war

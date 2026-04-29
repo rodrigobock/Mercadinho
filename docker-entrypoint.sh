@@ -20,7 +20,10 @@ sed -i \
 zip -qr "$WAR_OUT" .
 
 echo "[entrypoint] Iniciando Payara Micro..."
-exec java -jar "${PAYARA_MICRO_JAR}" \
+PAYARA_JAR=$(find /opt/payara -maxdepth 2 -name "payara-micro*.jar" | head -1)
+echo "[entrypoint] Usando JAR: $PAYARA_JAR"
+
+exec java -jar "$PAYARA_JAR" \
     --deploy "$WAR_OUT" \
     --port 8080 \
     --noCluster
